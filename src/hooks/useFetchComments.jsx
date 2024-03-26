@@ -11,7 +11,7 @@ const useFetchComments = (endpoint) => {
       const data = await fetch(endpoint, {
         headers: {
           Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWNkZGU5MGUwZWVkODAwMWEzY2FkNjEiLCJpYXQiOjE3MTA1MjEyMjYsImV4cCI6MTcxMTczMDgyNn0.zkZixUS1Io6G7bHCHI2lacbAO8XL06TcJqBdV-lbBlk",
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWNkZGU5MGUwZWVkODAwMWEzY2FkNjEiLCJpYXQiOjE3MTE0NDg0MTgsImV4cCI6MTcxMjY1ODAxOH0.7JsncRqW6mP05TsAJBeX2OuY8bKxv-vlJStutqXRjrI",
         },
       });
       const response = await data.json();
