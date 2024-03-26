@@ -15,7 +15,7 @@ import { SelectCategoryContext } from "../../context/SelectCategoryContext"; // 
 
 const MyNav = () => {
   const { setQuery } = useContext(QueryContext);
-  const { theme, toggleTheme } = useContext(ThemeContext);
+  const { toggleTheme } = useContext(ThemeContext);
   const { selectedCategory, setSelectedCategory } = useContext(SelectCategoryContext); // Get selectedCategory and setSelectedCategory from SelectCategoryContext
 
   const handleCategorySelect = (category) => {
