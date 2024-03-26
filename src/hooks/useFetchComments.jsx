@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const useFetchComments = (endpoint) => {
   const [loading, setLoading] = useState(false);
@@ -21,9 +21,15 @@ const useFetchComments = (endpoint) => {
       setError(error);
     }
   };
+
   useEffect(() => {
-    getCommentsFromApi();
+    const fetchData = async () => {
+      await getCommentsFromApi();
+    };
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [endpoint]);
+
   return { loading, data, error };
 };
 
