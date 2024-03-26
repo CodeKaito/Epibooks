@@ -16,7 +16,6 @@ import CommentArea from "./CommentArea";
 import "./style/latestReleases.css";
 import { SelectCategoryContext } from "../../../context/SelectCategoryContext";
 
-//! IMPORT CUSTOM HOOK
 import useWindowDimension from "../../../hooks/useWindowDimension";
 import { OffCanvassContext } from "../../../context/OffCanvassContext";
 //!------------------------------------------------------

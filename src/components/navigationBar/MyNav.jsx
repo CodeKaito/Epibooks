@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -9,12 +9,18 @@ import logo from "../../assets/logo.png";
 import "../../assets/logo.css";
 import { QueryContext } from "../../context/QueryContext";
 import { ThemeContext } from "../../context/ThemeContext";
-import { Button, NavDropdown, NavLink } from "react-bootstrap";
+import { Button, NavDropdown } from "react-bootstrap";
 import { nanoid } from "nanoid";
+import { SelectCategoryContext } from "../../context/SelectCategoryContext";
 
 const MyNav = () => {
   const { setQuery } = useContext(QueryContext);
   const { theme, toggleTheme } = useContext(ThemeContext);
+  const { setSelectedCategory } = useContext(SelectCategoryContext);
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+  };
 
   return (
     <>
@@ -39,23 +45,22 @@ const MyNav = () => {
                     title={link.title}
                     menuVariant="dark"
                   >
-                    {link.dropdownItems.map((dropdownEl) => {
-                      return (
-                        <NavDropdown.Item
-                          href={dropdownEl.href}
-                          key={dropdownEl.id}
-                          className={dropdownEl.className}
-                        >
-                          {dropdownEl.title}
-                        </NavDropdown.Item>
-                      );
-                    })}
+                    {link.dropdownItems.map((dropdownEl) => (
+                      <NavDropdown.Item
+                        href={dropdownEl.href}
+                        key={dropdownEl.id}
+                        className={dropdownEl.className}
+                        onClick={() => handleCategorySelect(dropdownEl.category)}
+                      >
+                        {dropdownEl.title}
+                      </NavDropdown.Item>
+                    ))}
                   </NavDropdown>
                 ) : (
                   <Nav.Link
                     key={link.id}
                     as={Link}
-                    to={link.href} // Use Link and to instead of href
+                    to={link.href}
                     className={link.className}
                   >
                     {link.title}
