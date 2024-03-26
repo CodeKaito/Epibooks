@@ -12,6 +12,7 @@ const CommentArea = () => {
   const isBookDetailsPage = location.pathname.includes("/book/");
   const { selected } = useContext(SelectedContext);
   const [bookComments, setBookComments] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false); // State per tracciare lo scroll
 
   const getCommentsFromApi = useCallback(async () => {
     try {
@@ -45,6 +46,23 @@ const CommentArea = () => {
     getCommentsFromApi();
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      // Controlla se la finestra è stata scrollata verso il basso
+      if (window.scrollY > 0) {
+        setIsScrolled(true); // Imposta lo stato a true se è stato fatto lo scroll
+      } else {
+        setIsScrolled(false); // Imposta lo stato a false se lo scroll è tornato in cima
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll); // Aggiungi un event listener per lo scroll
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll); // Rimuovi l'event listener quando il componente viene smontato
+    };
+  }, []);
+
   return (
     <>
       {!selected.asin && !isBookDetailsPage ? (
@@ -69,12 +87,12 @@ const CommentArea = () => {
             </>
           ) : (
             <>
-              <div className="sticky-top"> {/* Make the h3 sticky */}
+              <div className={`sticky-top ${isScrolled ? "scrolled" : ""}`} style={{ padding: "10px", width: "100%", backdropFilter: "blur(8px)", backgroundColor: "rgba(255, 255, 255, 0.5)" }}>
                   <h3 key={nanoid()}>Comments for:</h3>
                   <h5 key={nanoid()} className="mb-5">
                     {selected.title}
                   </h5>
-                </div>
+              </div>
               
             </>
           )}
