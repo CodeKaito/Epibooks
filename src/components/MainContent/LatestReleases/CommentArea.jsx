@@ -1,36 +1,27 @@
-import React, { useContext, useState, useEffect } from "react";
-
+import React, { useContext, useState, useEffect, useCallback } from "react";
 import { SelectedContext } from "../../../context/SelectedContext";
-
 import Spinner from "react-bootstrap/Spinner";
-
 import "../LatestReleases/style/commentArea.css";
-
 import AddComment from "./AddComment";
 import CommentList from "./CommentList";
-
 import { useLocation } from "react-router-dom";
-
 import { nanoid } from "nanoid";
 
 const CommentArea = () => {
   const location = useLocation();
-
   const isBookDetailsPage = location.pathname.includes("/book/");
-
   const { selected } = useContext(SelectedContext);
-
   const [bookComments, setBookComments] = useState(null);
 
-  const getCommentsFromApi = async () => {
+  const getCommentsFromApi = useCallback(async () => {
     try {
       const data = await fetch(
         `https://striveschool-api.herokuapp.com/api/comments/${selected.asin}`,
         {
           headers: {
             Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWNkZGU5MGUwZWVkODAwMWEzY2FkNjEiLCJpYXQiOjE3MTE0NDg0MTgsImV4cCI6MTcxMjY1ODAxOH0.7JsncRqW6mP05TsAJBeX2OuY8bKxv-vlJStutqXRjrI",
-          }
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWNkZGU5MGUwZWVkODAwMWEzY2FkNjEiLCJpYXQiOjE3MTE0NDg0MTgsImV4cCI6MTcxMjY1ODAxOH0.7JsncRqW6mP05TsAJBeX2OuY8bKxv-vlJStutqXRjrI",
+          },
         }
       );
       const response = await data.json();
@@ -38,13 +29,13 @@ const CommentArea = () => {
     } catch (error) {
       console.log("error", error);
     }
-  };
+  }, [selected.asin]);
 
   useEffect(() => {
     if (selected.asin || (isBookDetailsPage && selected.asin)) {
       getCommentsFromApi();
     }
-  }, [selected.asin, isBookDetailsPage]);
+  }, [selected.asin, isBookDetailsPage, getCommentsFromApi]);
 
   const handleDeleteComment = () => {
     getCommentsFromApi();
@@ -58,15 +49,8 @@ const CommentArea = () => {
     <>
       {!selected.asin && !isBookDetailsPage ? (
         <>
-          <Spinner
-            animation="grow"
-            key={nanoid()}
-            className="d-flex justify-content-center mx-auto align-items-center mt-5"
-          />
-          <p
-            key={nanoid()}
-            className="d-flex justify-content-center mx-auto align-items-center mt-3"
-          >
+          <Spinner animation="grow" key={nanoid()} className="d-flex justify-content-center mx-auto align-items-center mt-5"/>
+          <p key={nanoid()} className="d-flex justify-content-center mx-auto align-items-center mt-3">
             Click on a book to load contents...
           </p>
         </>
