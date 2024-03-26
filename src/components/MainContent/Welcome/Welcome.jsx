@@ -11,7 +11,7 @@ import "./style/welcome.css";
 import logo from "../../../assets/logo.png";
 
 const Welcome = () => {
-  const { theme, setTheme } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
   return (
     <>

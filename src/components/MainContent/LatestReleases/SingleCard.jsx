@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import { SelectedContext } from "../../../context/SelectedContext";
 import "./style/singleCard.css";
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
 function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
@@ -36,7 +35,6 @@ function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
               Details {btnSeeMore}
             </Link>
           </div>
-          
         </Card.Body>
       </Card>
     </>
