@@ -7,8 +7,7 @@ const SelectCategoryProvider = ({ children }) => {
 
   return (
     <SelectCategoryContext.Provider
-      value={{ selectedCategory, setSelectedCategory }}
-    >
+      value={{ selectedCategory, setSelectedCategory }}>
       {children}
     </SelectCategoryContext.Provider>
   );

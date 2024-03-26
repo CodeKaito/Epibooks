@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from "react";
 import useFetchComments from "../hooks/useFetchComments";
 
@@ -23,13 +22,15 @@ const BookDetails = () => {
   const { asin } = useParams();
 
   const { theme } = useContext(ThemeContext);
-
   const { selectedCategory } = useContext(SelectCategoryContext);
 
+  // Define the endpoint for fetching comments
+  const commentsEndpoint = `https://striveschool-api.herokuapp.com/api/comments/${asin}`;
+
+  // Use the custom hook to fetch comments
+  const { loading, data: comments, error } = useFetchComments(commentsEndpoint);
+
   const [book, setBook] = useState(null);
-  const [comments, setComments] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,23 +40,12 @@ const BookDetails = () => {
         const foundBook = booksCategory.find((item) => item.asin === asin);
         if (foundBook) {
           setBook(foundBook);
-          const commentsResponse = await fetch(
-            `https://striveschool-api.herokuapp.com/api/comments/${asin}`
-          );
-          if (commentsResponse.ok) {
-            const commentsData = await commentsResponse.json();
-            setComments(commentsData);
-          } else {
-            setError("Error fetching comments");
-          }
         } else {
-          setError("Book not found");
+          throw new Error("Book not found");
         }
-        setLoading(false);
       } catch (error) {
-        console.error("Error fetching data: ", error);
-        setError("Error fetching data");
-        setLoading(false);
+        console.error("Error fetching book data: ", error);
+        setBook(null);
       }
     };
 
@@ -90,7 +80,7 @@ const BookDetails = () => {
                 </div>
               </Col>
               <Col>
-                <CommentArea />
+                <CommentArea comments={comments} />
               </Col>
             </Row>
             <div className="d-flex justify-content-center mt-5">
