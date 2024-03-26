@@ -56,7 +56,6 @@ const NotFound = () => {
           </Button>
         </div>
 
-        {/* END Content */}
       </section>
     </>
   );
