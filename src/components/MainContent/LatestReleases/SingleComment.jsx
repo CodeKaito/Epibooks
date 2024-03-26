@@ -6,9 +6,6 @@ import DeleteComment from "./DeleteComment";
 
 import "./style/singleComment.css";
 import EditComment from "./EditComment";
-// import Container from "react-bootstrap/Container";
-// import Row from "react-bootstrap/Row";
-// import Col from "react-bootstrap/Col";
 
 const SingleComment = ({
   comment,

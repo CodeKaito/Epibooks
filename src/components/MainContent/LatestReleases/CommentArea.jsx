@@ -12,7 +12,6 @@ import CommentList from "./CommentList";
 import { useLocation } from "react-router-dom";
 
 import { nanoid } from "nanoid";
-import useFetchComments from "../../../hooks/useFetchComments";
 
 const CommentArea = () => {
   const location = useLocation();

@@ -36,7 +36,7 @@ const LatestReleases = () => {
       const category = selectedCategory;
       console.log(category);
       try {
-        const response = await import(`./data/${category}.json`);
+        const response = await import(`../../../../public/data/${category}.json`);
         const categoryBooks = response.default;
 
         setFilteredBooks(
