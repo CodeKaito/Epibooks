@@ -20,7 +20,7 @@ const MyFooter = () => {
             <ul className="list-unstyled">
               {leftFooterPanelLinks.map((link) => {
                 return (
-                  <a href="#" key={nanoid()}>
+                  <a href="/" key={nanoid()}>
                     <li key={link.index}>{link.title}</li>
                   </a>
                 );
@@ -33,7 +33,7 @@ const MyFooter = () => {
             <ul className="list-unstyled">
               {rightFooterPanelLinks.map((link) => {
                 return (
-                  <a href="#" key={nanoid()}>
+                  <a href="/" key={nanoid()}>
                     <li key={link.index}>{link.title}</li>
                   </a>
                 );
@@ -44,7 +44,7 @@ const MyFooter = () => {
       </div>
       <div className="footer-copyright text-center py-3">
         © 2023 Copyright:
-        <a href="#"> EpiBooks.com</a>
+        <a href="/"> EpiBooks.com</a>
       </div>
     </footer>
   );
