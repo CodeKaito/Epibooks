@@ -66,48 +66,41 @@ const CommentArea = () => {
   return (
     <>
       {!selected.asin && !isBookDetailsPage ? (
-        <>
-          <Spinner animation="grow" key={nanoid()} className="d-flex justify-content-center mx-auto align-items-center mt-5"/>
-          <p key={nanoid()} className="d-flex justify-content-center mx-auto align-items-center mt-3">
+        <div key={nanoid()}>
+          <Spinner animation="grow" className="d-flex justify-content-center mx-auto align-items-center mt-5"/>
+          <p className="d-flex justify-content-center mx-auto align-items-center mt-3">
             Click on a book to load contents...
           </p>
-        </>
+        </div>
       ) : null}
-
+  
       {selected.asin || isBookDetailsPage ? (
         <div
           className="d-flex flex-column justify-content-center align-items-start m-0 p-0 commentArea"
           key={nanoid()}
         >
           {isBookDetailsPage ? (
-            <>
-              <h3 key={nanoid()} className="mb-5 align-self-center">
-                Reviews:
-              </h3>
-            </>
+            <h3 key={nanoid()} className="mb-5 align-self-center">
+              Reviews:
+            </h3>
           ) : (
-            <>
-              <div className={`sticky-top ${isScrolled ? "scrolled" : ""}`} style={{ padding: "10px", width: "100%", backdropFilter: "blur(8px)", backgroundColor: "rgba(255, 255, 255, 0.5)" }}>
-                  <h3 key={nanoid()}>Comments for:</h3>
-                  <h5 key={nanoid()} className="mb-5">
-                    {selected.title}
-                  </h5>
-              </div>
-              
-            </>
+            <div className={`sticky-top ${isScrolled ? "scrolled" : ""}`} style={{ padding: "10px", width: "100%", backdropFilter: "blur(8px)", backgroundColor: "rgba(255, 255, 255, 0.5)" }} key={nanoid()}>
+              <h3 key={nanoid()}>Comments for:</h3>
+              <h5 key={nanoid()} className="mb-5">
+                {selected.title}
+              </h5>
+            </div>
           )}
-
+  
           {bookComments && bookComments.length > 0 ? (
             bookComments.map((comment) => (
-              <>
-                <CommentList
-                  comment={comment}
-                  title={comment.title}
-                  key={nanoid()}
-                  handleDeleteComment={handleDeleteComment}
-                  getCommentsFromApi={getCommentsFromApi}
-                />
-              </>
+              <CommentList
+                comment={comment}
+                title={comment.title}
+                key={nanoid()}
+                handleDeleteComment={handleDeleteComment}
+                getCommentsFromApi={getCommentsFromApi}
+              />
             ))
           ) : (
             <p
@@ -117,7 +110,7 @@ const CommentArea = () => {
               No comments here yet 😟 Be the first one!
             </p>
           )}
-
+  
           <AddComment
             title={selected.title}
             asin={selected.asin}
@@ -127,7 +120,6 @@ const CommentArea = () => {
         </div>
       ) : null}
     </>
-  );
-};
-
+);
+          };
 export default CommentArea;
