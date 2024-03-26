@@ -9,6 +9,7 @@ import MyNav from "../components/navigationBar/MyNav";
 import MyFooter from "../components/MyFooter/MyFooter";
 import CommentArea from "../components/MainContent/LatestReleases/CommentArea";
 import { Container, Row, Col, Button } from "react-bootstrap";
+import './style/bookdetail.css'
 
 import { useLocation } from "react-router-dom";
 
@@ -80,7 +81,9 @@ const BookDetails = () => {
                 </div>
               </Col>
               <Col>
-                <CommentArea comments={comments} />
+                <div className="mainContainer-scrollable">
+                  <CommentArea comments={comments} />
+                </div>
               </Col>
             </Row>
             <div className="d-flex justify-content-center mt-5">

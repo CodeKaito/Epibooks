@@ -69,7 +69,9 @@ const CommentArea = () => {
             </>
           ) : (
             <>
-              <h3 key={nanoid()}>Comments for:</h3>
+              <div className="sticky-top"> {/* Make the h3 sticky */}
+                  <h3 key={nanoid()}>Comments for:</h3>
+                </div>
               <h5 key={nanoid()} className="mb-5">
                 {selected.title}
               </h5>
