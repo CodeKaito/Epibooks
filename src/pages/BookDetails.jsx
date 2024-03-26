@@ -3,14 +3,13 @@ import React, { useContext, useEffect, useState } from "react";
 import useFetchComments from "../hooks/useFetchComments";
 
 import { Link, useParams } from "react-router-dom";
-import fantasyJson from "../components/MainContent/LatestReleases/data/fantasy.json";
-import horrorJson from "../components/MainContent/LatestReleases/data/horror.json";
-import scifiJson from "../components/MainContent/LatestReleases/data/scifi.json";
-import historyJson from "../components/MainContent/LatestReleases/data/history.json";
-import romanceJson from "../components/MainContent/LatestReleases/data/romance.json";
+import fantasyJson from "../components/MainContent/LatestReleases/data/Fantasy.json";
+import horrorJson from "../components/MainContent/LatestReleases/data/Horror.json";
+import scifiJson from "../components/MainContent/LatestReleases/data/Sci-Fi.json";
+import historyJson from "../components/MainContent/LatestReleases/data/History.json";
+import romanceJson from "../components/MainContent/LatestReleases/data/Romance.json";
 
 import { QueryProvider } from "../context/QueryContext";
-import { SelectedContext } from "../context/SelectedContext";
 import { SelectCategoryContext } from "../context/SelectCategoryContext";
 
 import { ThemeContext } from "../context/ThemeContext";
@@ -48,7 +47,7 @@ const BookDetails = () => {
       booksCategory = horrorJson;
       break;
 
-    case "scifi":
+    case "Sci-Fi":
       booksCategory = scifiJson;
       break;
 
@@ -79,7 +78,7 @@ const BookDetails = () => {
     }
   }, [book.asin, selectedCategory, loading, error, data]);
 
-  // console.log(book);
+  console.log(book);
   return (
     <QueryProvider>
       <div

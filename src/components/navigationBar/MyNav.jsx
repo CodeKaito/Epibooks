@@ -11,15 +11,15 @@ import { QueryContext } from "../../context/QueryContext";
 import { ThemeContext } from "../../context/ThemeContext";
 import { Button, NavDropdown } from "react-bootstrap";
 import { nanoid } from "nanoid";
-import { SelectCategoryContext } from "../../context/SelectCategoryContext";
+import { SelectCategoryContext } from "../../context/SelectCategoryContext"; // Import SelectCategoryContext
 
 const MyNav = () => {
   const { setQuery } = useContext(QueryContext);
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const { setSelectedCategory } = useContext(SelectCategoryContext);
+  const { selectedCategory, setSelectedCategory } = useContext(SelectCategoryContext); // Get selectedCategory and setSelectedCategory from SelectCategoryContext
 
   const handleCategorySelect = (category) => {
-    setSelectedCategory(category);
+    setSelectedCategory(category); // Set the selected category
   };
 
   return (
@@ -44,13 +44,14 @@ const MyNav = () => {
                     key={nanoid()}
                     title={link.title}
                     menuVariant="dark"
+                    className={selectedCategory.toLowerCase() === link.title.toLowerCase() ? "active" : ""}
                   >
                     {link.dropdownItems.map((dropdownEl) => (
                       <NavDropdown.Item
                         href={dropdownEl.href}
                         key={dropdownEl.id}
                         className={dropdownEl.className}
-                        onClick={() => handleCategorySelect(dropdownEl.category)}
+                        onClick={() => handleCategorySelect(dropdownEl.title)}
                       >
                         {dropdownEl.title}
                       </NavDropdown.Item>

@@ -4,7 +4,6 @@ const SelectedContext = createContext();
 
 const SelectedProvider = ({ children }) => {
   const [selected, setSelected] = useState({ asin: "", title: "" });
-  // console.log(selected);
 
   const handleSelect = (asin, title) => {
     setSelected({ asin, title });

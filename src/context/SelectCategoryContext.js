@@ -3,7 +3,7 @@ import React, { createContext, useState } from "react";
 const SelectCategoryContext = createContext();
 
 const SelectCategoryProvider = ({ children }) => {
-  const [selectedCategory, setSelectedCategory] = useState("history");
+  const [selectedCategory, setSelectedCategory] = useState("History");
 
   return (
     <SelectCategoryContext.Provider
