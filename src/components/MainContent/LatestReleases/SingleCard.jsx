@@ -1,24 +1,16 @@
-import React, { useContext, useState } from "react";
-
+import React, { useContext } from "react";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import { SelectedContext } from "../../../context/SelectedContext";
-
-// import CommentModal from "./CommentModal";
-
 import "./style/singleCard.css";
-
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
 function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
-  // const [openCommentModal, setOpenCommentModal] = useState(false);
-
   const { selected, handleSelect } = useContext(SelectedContext);
-
   const isSelected = selected.asin === asin;
 
   const handleShow = () => {
     handleSelect(asin, title);
-    // setOpenCommentModal(!openCommentModal);
   };
 
   return (
@@ -39,13 +31,14 @@ function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
             in <em>{category}</em>
           </Card.Text>
           <Card.Text>€ {price}</Card.Text>
-          <Button variant="outline-success">{btnSeeMore}</Button>
+          <div>
+            <Link to={`/details/${asin}`} className="btn btn-outline-success">
+              Details {btnSeeMore}
+            </Link>
+          </div>
+          
         </Card.Body>
       </Card>
-
-      {/* {openCommentModal && (
-        <CommentModal asin={asin} handleShow={handleShow} title={title} />
-      )} */}
     </>
   );
 }

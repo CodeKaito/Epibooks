@@ -1,18 +1,14 @@
 import React, { useContext } from "react";
-
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-// import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-
 import { myNavLinks } from "./data/myNavLinks";
 import logo from "../../assets/logo.png";
 import "../../assets/logo.css";
-
 import { QueryContext } from "../../context/QueryContext";
 import { ThemeContext } from "../../context/ThemeContext";
-
 import { Button, NavDropdown, NavLink } from "react-bootstrap";
 import { nanoid } from "nanoid";
 
@@ -30,7 +26,7 @@ const MyNav = () => {
         className="fixed-top"
       >
         <Container fluid className="mx-0">
-          <Navbar.Brand href="#">
+          <Navbar.Brand as={Link} to="/">
             EpiBooks <img className="logo" src={logo} alt="EpiBooks_logo" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
@@ -58,7 +54,8 @@ const MyNav = () => {
                 ) : (
                   <Nav.Link
                     key={link.id}
-                    href={link.href}
+                    as={Link}
+                    to={link.href} // Use Link and to instead of href
                     className={link.className}
                   >
                     {link.title}
