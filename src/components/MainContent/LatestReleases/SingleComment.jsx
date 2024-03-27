@@ -1,7 +1,5 @@
 import { nanoid } from "nanoid";
-
 import DeleteComment from "./DeleteComment";
-
 import "./style/singleComment.css";
 import EditComment from "./EditComment";
 

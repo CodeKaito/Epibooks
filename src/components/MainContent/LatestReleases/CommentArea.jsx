@@ -96,7 +96,7 @@ const CommentArea = () => {
             bookComments.map((comment) => (
               <CommentList
                 comment={comment}
-                title={comment.title}
+                title={selected.title}
                 key={nanoid()}
                 handleDeleteComment={handleDeleteComment}
                 getCommentsFromApi={getCommentsFromApi}
