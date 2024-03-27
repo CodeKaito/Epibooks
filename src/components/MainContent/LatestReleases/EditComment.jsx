@@ -64,7 +64,7 @@ const EditComment = ({ comment, title, getCommentsFromApi }) => {
               <Row>
                 <Col xs={12}>
                   <Modal.Title className="mb-3">
-                    Edit your Review for:
+                    Edit your Review for: 
                   </Modal.Title>
                 </Col>
                 <Col xs={12}>

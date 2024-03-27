@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link } from "react-router-dom"; 
 import { SelectedContext } from "../../../context/SelectedContext";
 import "./style/singleCard.css";
 import Card from "react-bootstrap/Card";

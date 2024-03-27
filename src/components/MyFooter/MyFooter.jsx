@@ -3,9 +3,11 @@ import React from "react";
 import { leftFooterPanelLinks, rightFooterPanelLinks } from "./data/myfooter";
 import { nanoid } from "nanoid";
 
+import './myfooter.css'
+
 const MyFooter = () => {
   return (
-    <footer className="footer page-footer font-small blue pt-4 bg-dark text-light mt-5 overflow-hidden">
+    <footer className="footer page-footer font-small pt-4 bg-dark text-light mt-5 overflow-hidden">
       <div className="container-fluid text-center text-md-left">
         <div className="row">
           <div className="col-md-6 mt-md-0 mt-3">
@@ -20,7 +22,7 @@ const MyFooter = () => {
             <ul className="list-unstyled">
               {leftFooterPanelLinks.map((link) => {
                 return (
-                  <a href="/" key={nanoid()}>
+                  <a href="/" key={nanoid()} className="footer-anchor">
                     <li key={link.index}>{link.title}</li>
                   </a>
                 );
@@ -33,7 +35,7 @@ const MyFooter = () => {
             <ul className="list-unstyled">
               {rightFooterPanelLinks.map((link) => {
                 return (
-                  <a href="/" key={nanoid()}>
+                  <a href="/" key={nanoid()} className="footer-anchor">
                     <li key={link.index}>{link.title}</li>
                   </a>
                 );
@@ -44,7 +46,7 @@ const MyFooter = () => {
       </div>
       <div className="footer-copyright text-center py-3">
         © 2023 Copyright:
-        <a href="/"> EpiBooks.com</a>
+        <a href="/" className="footer-anchor"> EpiBooks.com</a>
       </div>
     </footer>
   );

@@ -48,18 +48,18 @@ const CommentArea = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Controlla se la finestra è stata scrollata verso il basso
+
       if (window.scrollY > 0) {
-        setIsScrolled(true); // Imposta lo stato a true se è stato fatto lo scroll
+        setIsScrolled(true); 
       } else {
-        setIsScrolled(false); // Imposta lo stato a false se lo scroll è tornato in cima
+        setIsScrolled(false); 
       }
     };
 
-    window.addEventListener("scroll", handleScroll); // Aggiungi un event listener per lo scroll
+    window.addEventListener("scroll", handleScroll); 
 
     return () => {
-      window.removeEventListener("scroll", handleScroll); // Rimuovi l'event listener quando il componente viene smontato
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -103,10 +103,7 @@ const CommentArea = () => {
               />
             ))
           ) : (
-            <p
-              className="d-flex justify-content-center align-items-center mx-auto p-0 m-0"
-              key={nanoid()}
-            >
+            <p className="d-flex justify-content-center align-items-center mx-auto p-0 m-0" key={nanoid()}>
               No comments here yet 😟 Be the first one!
             </p>
           )}

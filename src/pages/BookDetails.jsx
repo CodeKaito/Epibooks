@@ -25,10 +25,8 @@ const BookDetails = () => {
   const { theme } = useContext(ThemeContext);
   const { selectedCategory } = useContext(SelectCategoryContext);
 
-  // Define the endpoint for fetching comments
   const commentsEndpoint = `https://striveschool-api.herokuapp.com/api/comments/${asin}`;
 
-  // Use the custom hook to fetch comments
   const { loading, data: comments, error } = useFetchComments(commentsEndpoint);
 
   const [book, setBook] = useState(null);

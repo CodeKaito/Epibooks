@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import MyNav from "../components/navigationBar/MyNav";
 import Welcome from "../components/MainContent/Welcome/Welcome";
-import LatestReleases from "../components/MainContent/LatestReleases/LatestReleases";
+import AllBooks from "../components/MainContent/LatestReleases/AllBooks";
 import MyFooter from "../components/MyFooter/MyFooter";
 
 import { QueryProvider } from "../context/QueryContext";
@@ -17,7 +17,7 @@ const Homepage = () => {
       >
         <MyNav />
         <Welcome />
-        <LatestReleases />
+        <AllBooks />
         <MyFooter />
       </div>
     </QueryProvider>
