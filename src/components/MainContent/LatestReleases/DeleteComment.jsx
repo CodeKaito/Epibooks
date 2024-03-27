@@ -25,7 +25,7 @@ const DeleteComment = ({ bookId, handleDeleteComment }) => {
   };
   return (
     <i
-      className="bi bi-trash ms-5"
+      className="bi bi-trash ms-3"
       role="button"
       onClick={deleteCommentFunc}
     ></i>

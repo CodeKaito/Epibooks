@@ -55,7 +55,7 @@ const EditComment = ({ comment, title, getCommentsFromApi }) => {
 
   return (
     <>
-      <i className="bi bi-pencil" role="button" onClick={handleEditComment}></i>
+      <i className="bi bi-pencil ms-3 me-2" role="button" onClick={handleEditComment}></i>
 
       {openEditCommentModal && (
         <Modal centered fade="true" show size="xl" onHide={handleEditComment}>

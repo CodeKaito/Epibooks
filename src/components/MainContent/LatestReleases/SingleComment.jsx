@@ -40,9 +40,10 @@ const SingleComment = ({
         style={{ width: "100%" }}
         key={nanoid()}
       >
-        <div className="d-flex justify-content-between align-items-start gap-4">
-          <div style={{ maxWidth: "70%" }}>"{comment.comment}"</div>
+        <div className="d-block d-md-flex justify-content-start align-items-start gap-4">
           <div style={{ fontSize: ".7rem" }}>{formattedDate}</div>
+          <div style={{ maxWidth: "70%", marginTop: "10px" }}>"{comment.comment}"</div>
+          
         </div>
 
         <div className="mt-4 mb-2">
@@ -51,14 +52,14 @@ const SingleComment = ({
           <span className="fs-5 ms-2">{comment.rate}</span>/5
         </div>
 
-        <div className="d-flex justify-content-between align-items-center">
+        <div className="justify-content-between align-items-center">
           <div>
             <i className="bi bi-patch-check-fill">&nbsp;Verified User</i>
             <em className="ms-3" style={{ fontSize: ".7rem" }}>
               ({comment.author})
             </em>
           </div>
-          <div className="d-flex justify-content-between align-items-center gap-3">
+          <div className="mt-2 d-flex justify-content-end align-items-center">
             <DeleteComment
               bookId={comment._id}
               handleDeleteComment={handleDeleteComment}
