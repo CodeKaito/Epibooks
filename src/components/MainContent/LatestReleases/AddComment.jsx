@@ -7,7 +7,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-// import { FormControl, FormLabel, ModalTitle } from "react-bootstrap";
+import './style/addcomment.css';
 
 import { nanoid } from "nanoid";
 
@@ -78,8 +78,7 @@ const AddComment = ({ title, asin, handleAddNewComment }) => {
   return (
     <>
       <button
-        className="btn btn-outline-primary mt-5 align-self-center"
-        style={{ width: "300px" }}
+        className="btn btn-outline-primary mt-5 align-self-center addyourreview-button"
         onClick={handleAddCommentShow}
       >
         Add Your Review
