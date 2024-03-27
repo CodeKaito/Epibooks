@@ -1,24 +1,17 @@
-//!GLOBAL IMPORTS
 import React, { useContext, useEffect, useState } from "react";
 import { QueryContext } from "../../../context/QueryContext";
 import { ThemeContext } from "../../../context/ThemeContext";
 import { nanoid } from "nanoid";
-
-//!IMPORT FROM BOOTSTRAP
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Alert, Offcanvas } from "react-bootstrap";
-
-//!INTERNAL IMPORTS
 import SingleCard from "./SingleCard";
 import CommentArea from "./CommentArea";
 import "./style/latestReleases.css";
 import { SelectCategoryContext } from "../../../context/SelectCategoryContext";
-
 import useWindowDimension from "../../../hooks/useWindowDimension";
 import { OffCanvassContext } from "../../../context/OffCanvassContext";
-//!------------------------------------------------------
 
 const LatestReleases = () => {
   const { query, setQuery } = useContext(QueryContext);
@@ -26,7 +19,6 @@ const LatestReleases = () => {
   const { selectedCategory } = useContext(SelectCategoryContext);
   const { show, setShow } = useContext(OffCanvassContext);
   const [filteredBooks, setFilteredBooks] = useState([]);
-
   const { width } = useWindowDimension();
 
   const handleCloseCanvass = () => setShow(false);
@@ -34,7 +26,6 @@ const LatestReleases = () => {
   useEffect(() => {
     const fetchData = async () => {
       const category = selectedCategory;
-      console.log(category);
       try {
         const response = await import(`../../../../public/data/${category}.json`);
         const categoryBooks = response.default;
@@ -68,6 +59,7 @@ const LatestReleases = () => {
         btnSeeMore={<i className="bi bi-three-dots"></i>}
         category={book.category}
         asin={book.asin}
+        xsHeight={width <= 576} // Passa un booleano per controllare l'altezza della card in base alla larghezza dello schermo
       />
     </Col>
   ));
@@ -81,8 +73,7 @@ const LatestReleases = () => {
           style={{ maxWidth: "700px" }}
           key={nanoid()}
         >
-          Ooops, seems like I couldn't find anything from your query, please try
-          again!
+          Ooops, sembra che non riesca a trovare nulla dalla tua ricerca, per favore riprova!
         </Alert>
       );
     }
