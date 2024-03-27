@@ -1,23 +1,17 @@
 import React, { useState } from "react";
-
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Dropdown from "react-bootstrap/Dropdown";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { AlertSuccess, AlertDanger } from '../../Alerts/AlertComponent';
+import { Modal, Button, Form, Dropdown, Container, Row, Col } from "react-bootstrap";
 import './style/addcomment.css';
-
 import { nanoid } from "nanoid";
 
 const AddComment = ({ title, asin, handleAddNewComment }) => {
   const [openNewCommentModal, setOpenNewCommentModal] = useState(false);
   const [selectedRating, setSelectedRating] = useState(0);
   const [comment, setComment] = useState("");
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
 
-  const handleAddCommentShow = () =>
-    setOpenNewCommentModal(!openNewCommentModal);
+  const handleAddCommentShow = () => setOpenNewCommentModal(!openNewCommentModal);
 
   const handleRatingChange = (eventKey) => setSelectedRating(eventKey);
 
@@ -26,8 +20,7 @@ const AddComment = ({ title, asin, handleAddNewComment }) => {
   const renderStars = () => {
     const stars = [];
     for (let i = 0; i < 5; i++) {
-      const starClassName =
-        i < selectedRating ? "bi bi-star-fill" : "bi bi-star";
+      const starClassName = i < selectedRating ? "bi bi-star-fill" : "bi bi-star";
       stars.push(<i className={starClassName} key={nanoid()}></i>);
     }
     return (
@@ -42,46 +35,47 @@ const AddComment = ({ title, asin, handleAddNewComment }) => {
 
   const addNewCommentFunc = async (e) => {
     e.preventDefault();
-
     try {
-      const res = await fetch(
-        `https://striveschool-api.herokuapp.com/api/comments/`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            comment: comment,
-            rate: selectedRating,
-            elementId: asin,
-          }),
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWNkZGU5MGUwZWVkODAwMWEzY2FkNjEiLCJpYXQiOjE3MTE0NjM1NTcsImV4cCI6MTcxMjY3MzE1N30.whnXUzpEpxDxQlBm2xQ8IF25jBhlm6X4VSxtwbK1XlY",
-
-            "Content-type": "application/json",
-          },
-        }
-      );
+      const res = await fetch(`https://striveschool-api.herokuapp.com/api/comments/`, {
+        method: "POST",
+        body: JSON.stringify({
+          comment: comment,
+          rate: selectedRating,
+          elementId: asin,
+        }),
+        headers: {
+          Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWNkZGU5MGUwZWVkODAwMWEzY2FkNjEiLCJpYXQiOjE3MTE0NjM1NTcsImV4cCI6MTcxMjY3MzE1N30.whnXUzpEpxDxQlBm2xQ8IF25jBhlm6X4VSxtwbK1XlY",
+          "Content-type": "application/json",
+        },
+      });
       if (res.ok) {
         console.log("comment submitted successfully");
+        setShowSuccessAlert(true);
         setTimeout(() => {
           handleAddNewComment();
+          setOpenNewCommentModal(false);
+          setShowSuccessAlert(false);
         }, 1000);
-        setOpenNewCommentModal(false);
       } else {
         console.log("error submitting comment");
+        setShowErrorAlert(true);
       }
     } catch (error) {
       console.log("error", error);
+      setShowErrorAlert(true);
     }
   };
 
   return (
     <>
-      <button
-        className="btn btn-outline-primary mt-5 align-self-center addyourreview-button"
-        onClick={handleAddCommentShow}
-      >
-        Add Your Review
+      {showSuccessAlert && (
+        <AlertSuccess message="Operazione completata con successo!" />
+      )}
+      {showErrorAlert && (
+        <AlertDanger message="Si è verificato un errore durante l'operazione." />
+      )}
+
+      <button className="btn btn-outline-primary mt-5 align-self-center addyourreview-button" onClick={handleAddCommentShow}>Add Your Review
       </button>
 
       {openNewCommentModal && (
@@ -123,16 +117,9 @@ const AddComment = ({ title, asin, handleAddNewComment }) => {
                 <Form.Text className="text-muted"></Form.Text>
               </Form.Group>
 
-              <Form.Group
-                required
-                className="mb-3"
-                controlId="formBasicPassword"
-              >
+              <Form.Group required className="mb-3" controlId="formBasicPassword">
                 <Dropdown required onSelect={handleRatingChange}>
-                  <Dropdown.Toggle
-                    variant="outline-secondary"
-                    id="dropdown-basic"
-                  >
+                  <Dropdown.Toggle variant="outline-secondary" id="dropdown-basic">
                     How would you rate this book?
                   </Dropdown.Toggle>
 

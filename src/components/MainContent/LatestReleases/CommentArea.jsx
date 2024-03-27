@@ -12,7 +12,7 @@ const CommentArea = () => {
   const isBookDetailsPage = location.pathname.includes("/book/");
   const { selected } = useContext(SelectedContext);
   const [bookComments, setBookComments] = useState(null);
-  const [isScrolled, setIsScrolled] = useState(false); // State per tracciare lo scroll
+  const [isScrolled, setIsScrolled] = useState(false); 
 
   const getCommentsFromApi = useCallback(async () => {
     try {
@@ -84,7 +84,7 @@ const CommentArea = () => {
               Reviews:
             </h3>
           ) : (
-            <div className={`sticky-top ${isScrolled ? "scrolled" : ""}`} style={{ padding: "10px", width: "100%", backdropFilter: "blur(8px)", backgroundColor: "rgba(255, 255, 255, 0.5)" }} key={nanoid()}>
+            <div className={`sticky-top ${isScrolled ? "scrolled" : ""}`} style={{ padding: "10px", width: "100%", backdropFilter: "blur(2px)", backgroundColor: "rgba(255, 255, 255, 0.0001)" }} key={nanoid()}>
               <h3 key={nanoid()}>Comments for:</h3>
               <h5 key={nanoid()} className="mb-5">
                 {selected.title}
@@ -96,7 +96,7 @@ const CommentArea = () => {
             bookComments.map((comment) => (
               <CommentList
                 comment={comment}
-                title={selected.title}
+                title={comment.title}
                 key={nanoid()}
                 handleDeleteComment={handleDeleteComment}
                 getCommentsFromApi={getCommentsFromApi}
