@@ -1,17 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { QueryContext } from "../../../context/QueryContext";
 import { ThemeContext } from "../../../context/ThemeContext";
-import { nanoid } from "nanoid";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import { Alert, Offcanvas } from "react-bootstrap";
-import SingleCard from "./SingleCard";
-import CommentArea from "./CommentArea";
-import "./style/allbooks.css";
+import { OffCanvassContext } from "../../../context/OffCanvassContext";
 import { SelectCategoryContext } from "../../../context/SelectCategoryContext";
 import useWindowDimension from "../../../hooks/useWindowDimension";
-import { OffCanvassContext } from "../../../context/OffCanvassContext";
+
+import { Container, Row, Col, Alert, Offcanvas  } from "react-bootstrap";
+import SingleCard from "./SingleCard";
+import CommentArea from "./CommentArea";
+import { nanoid } from "nanoid";
+
+import "./style/allbooks.css";
 
 const AllBooks = () => {
   const { query, setQuery } = useContext(QueryContext);
