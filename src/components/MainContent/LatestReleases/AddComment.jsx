@@ -89,7 +89,7 @@ const AddComment = ({ title, asin, handleAddNewComment }) => {
           centered
           fade="true"
           show
-          size="xl"
+          size="lg"
           onHide={handleAddCommentShow}
         >
           <Modal.Header closeButton onClick={handleAddCommentShow}>
@@ -113,7 +113,7 @@ const AddComment = ({ title, asin, handleAddNewComment }) => {
                 <Form.Control
                   required
                   as="textarea"
-                  cols="200"
+                  cols="100"
                   rows="10"
                   type="text"
                   placeholder="Your Comment..."
