@@ -5,14 +5,18 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { AlertSuccess, AlertDanger } from '../../Alerts/AlertComponent'; // Importa gli alert
 
 const EditComment = ({ comment, title, getCommentsFromApi }) => {
+
+  const apiKey = process.env.REACT_APP_API_KEY;
   const [openEditCommentModal, setOpenEditCommentModal] = useState(false);
   const [editedComment, setEditedComment] = useState("");
   const [editedRating, setEditedRating] = useState(0);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false); // Stato per l'alert di successo
+  const [showErrorAlert, setShowErrorAlert] = useState(false); // Stato per l'alert di errore
 
   useEffect(() => {
-
     setEditedComment(comment.comment);
     setEditedRating(comment.rate);
   }, [comment.comment, comment.rate]);
@@ -31,30 +35,32 @@ const EditComment = ({ comment, title, getCommentsFromApi }) => {
 
   const handleEditSubmit = async (e) => {
     e.preventDefault();
-
     const updatedComment = {
       comment: editedComment,
-      rate: editedRating, // Aggiorna anche il rating del commento
+      rate: editedRating,
     };
     try {
-      const res = await fetch(
-        `https://striveschool-api.herokuapp.com/api/comments/${comment._id}`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWNkZGU5MGUwZWVkODAwMWEzY2FkNjEiLCJpYXQiOjE3MTE0NDg0MTgsImV4cCI6MTcxMjY1ODAxOH0.7JsncRqW6mP05TsAJBeX2OuY8bKxv-vlJStutqXRjrI",
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify(updatedComment),
-        }
-      );
+      const res = await fetch(`https://striveschool-api.herokuapp.com/api/comments/${comment._id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: apiKey,
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(updatedComment),
+      });
       if (res.ok) {
+        setShowSuccessAlert(true); 
         setTimeout(() => {
           getCommentsFromApi();
+          setOpenEditCommentModal(false);
+          setShowSuccessAlert(false); 
         }, 1000);
+      } else {
+        setShowErrorAlert(true); 
       }
     } catch (error) {
       console.log(error);
+      setShowErrorAlert(true);
     }
   };
 
@@ -94,6 +100,8 @@ const EditComment = ({ comment, title, getCommentsFromApi }) => {
             </Container>
           </Modal.Header>
           <Modal.Body className="d-flex flex-column align-items-start justify-content-center">
+            {showSuccessAlert && <AlertSuccess message="Comment updated successfully!" />} {/* Renderizza l'alert di successo */}
+            {showErrorAlert && <AlertDanger message="Error updating comment!" />} {/* Renderizza l'alert di errore */}
             <Form onSubmit={handleEditSubmit}>
               <Form.Group className="mb-3" controlId="">
                 <Form.Label>What do you think about this book?</Form.Label>

@@ -135,7 +135,7 @@ const AddComment = ({ title, asin, handleAddNewComment }) => {
 
               {renderStars()}
 
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit" disabled={!comment || !selectedRating}>
                 Submit
               </Button>
             </Form>

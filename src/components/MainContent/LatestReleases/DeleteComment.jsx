@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
+import { AlertSuccess, AlertDanger } from '../../Alerts/AlertComponent'; 
 import "./style/deleteComment.css";
 
 const DeleteComment = ({ bookId, handleDeleteComment }) => {
-  const [showModal, setShowModal] = useState(false);
 
+  const apiKey = process.env.REACT_APP_API_KEY;
+  const [showModal, setShowModal] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false); 
+  const [showErrorAlert, setShowErrorAlert] = useState(false); 
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
 
@@ -15,16 +19,20 @@ const DeleteComment = ({ bookId, handleDeleteComment }) => {
         {
           method: "DELETE",
           headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWNkZGU5MGUwZWVkODAwMWEzY2FkNjEiLCJpYXQiOjE3MTE0NjM1NTcsImV4cCI6MTcxMjY3MzE1N30.whnXUzpEpxDxQlBm2xQ8IF25jBhlm6X4VSxtwbK1XlY",
-              "Content-Type": "application/json",
+            Authorization: apiKey,
+            "Content-Type": "application/json",
           },
         }
       );
       handleClose(); 
       handleDeleteComment();
+      setShowSuccessAlert(true); 
+      setTimeout(() => {
+        setShowSuccessAlert(false);
+      }, 3000);
     } catch (error) {
       console.log("error", error);
+      setShowErrorAlert(true); 
     }
   };
 
@@ -48,6 +56,9 @@ const DeleteComment = ({ bookId, handleDeleteComment }) => {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      {showSuccessAlert && <AlertSuccess message="Comment deleted successfully!" />}
+      {showErrorAlert && <AlertDanger message="Error deleting comment!" />}
     </>
   );
 };

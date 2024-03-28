@@ -5,7 +5,7 @@ import { OffCanvassContext } from "../../../context/OffCanvassContext";
 import { SelectCategoryContext } from "../../../context/SelectCategoryContext";
 import useWindowDimension from "../../../hooks/useWindowDimension";
 
-import { Container, Row, Col, Alert, Offcanvas  } from "react-bootstrap";
+import { Container, Row, Col, Alert, Offcanvas, Spinner } from "react-bootstrap";
 import SingleCard from "./SingleCard";
 import CommentArea from "./CommentArea";
 import { nanoid } from "nanoid";
@@ -18,6 +18,7 @@ const AllBooks = () => {
   const { selectedCategory } = useContext(SelectCategoryContext);
   const { show, setShow } = useContext(OffCanvassContext);
   const [filteredBooks, setFilteredBooks] = useState([]);
+  const [loading, setLoading] = useState(false); // Stato per gestire il caricamento dei dati
   const { width } = useWindowDimension();
 
   const handleCloseCanvass = () => setShow(false);
@@ -26,9 +27,13 @@ const AllBooks = () => {
     const fetchData = async () => {
       const category = selectedCategory;
       try {
+        setLoading(true);
+  
         const response = await import(`../../../../public/data/${category}.json`);
-        const categoryBooks = response.default;
-
+        let categoryBooks = response.default;
+  
+        categoryBooks = categoryBooks.sort(() => Math.random() - 0.5);
+  
         setFilteredBooks(
           categoryBooks.filter((book) =>
             book.title.toLowerCase().includes(query.toLowerCase())
@@ -36,9 +41,11 @@ const AllBooks = () => {
         );
       } catch (error) {
         console.log("Error fetching data: ", error);
+      } finally {
+        setLoading(false);
       }
     };
-
+  
     fetchData();
   }, [query, setFilteredBooks, setQuery, selectedCategory]);
 
@@ -58,7 +65,7 @@ const AllBooks = () => {
         btnSeeMore={<i className="bi bi-three-dots"></i>}
         category={book.category}
         asin={book.asin}
-        xsHeight={width <= 576} // Passa un booleano per controllare l'altezza della card in base alla larghezza dello schermo
+        xsHeight={width <= 576}
       />
     </Col>
   ));
@@ -89,12 +96,20 @@ const AllBooks = () => {
       >
         <Row key={nanoid()}>
           <Col xs={12} sm={8} className="m-0 booksContainer" key={nanoid()}>
-            <div className="mainContainer-scrollable" key={nanoid()}>
-              <Row className="g-5" key={nanoid()}>
-                {renderBooks}
-                {renderErrorMsg()}
-              </Row>
-            </div>
+            {loading ? (
+              <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "50vh" }}>
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              </div>
+            ) : (
+              <div className="mainContainer-scrollable" key={nanoid()}>
+                <Row className="g-5" key={nanoid()}>
+                  {renderBooks}
+                  {renderErrorMsg()}
+                </Row>
+              </div>
+            )}
           </Col>
           {width <= 576 ? (
             <>

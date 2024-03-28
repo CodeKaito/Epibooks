@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import { SelectedContext } from "../../../context/SelectedContext";
 import "./style/singleCard.css";
 import Card from "react-bootstrap/Card";
+import { FaShoppingCart } from "react-icons/fa";
 
 function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
   const { selected, handleSelect } = useContext(SelectedContext);
@@ -10,6 +11,11 @@ function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
 
   const handleShow = () => {
     handleSelect(asin, title);
+  };
+
+  const handleAddToCart = () => {
+    // Funzione per gestire l'aggiunta del prodotto al carrello
+    console.log("Product added to cart:", title);
   };
 
   return (
@@ -30,10 +36,16 @@ function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
             in <em>{category}</em>
           </Card.Text>
           <Card.Text>€ {price}</Card.Text>
-          <div>
+          <div className="d-flex justify-content-between align-items-center">
             <Link to={`/details/${asin}`} className="btn btn-outline-success">
               Details {btnSeeMore}
             </Link>
+            <button
+              className="btn btn-outline-primary"
+              onClick={handleAddToCart}
+            >
+              <FaShoppingCart />
+            </button>
           </div>
         </Card.Body>
       </Card>

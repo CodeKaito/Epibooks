@@ -11,7 +11,8 @@ import { QueryContext } from "../../context/QueryContext";
 import { ThemeContext } from "../../context/ThemeContext";
 import { Button, NavDropdown } from "react-bootstrap";
 import { nanoid } from "nanoid";
-import { SelectCategoryContext } from "../../context/SelectCategoryContext"; // Import SelectCategoryContext
+import { SelectCategoryContext } from "../../context/SelectCategoryContext"; 
+import { FaShoppingCart } from "react-icons/fa";
 
 const MyNav = () => {
   const { setQuery } = useContext(QueryContext);
@@ -19,7 +20,7 @@ const MyNav = () => {
   const { selectedCategory, setSelectedCategory } = useContext(SelectCategoryContext); // Get selectedCategory and setSelectedCategory from SelectCategoryContext
 
   const handleCategorySelect = (category) => {
-    setSelectedCategory(category); // Set the selected category
+    setSelectedCategory(category); 
   };
 
   return (
@@ -69,6 +70,12 @@ const MyNav = () => {
                 )
               )}
             </Nav>
+            
+            <Link to="/cart" className="btn btn-outline-light me-3">
+              Shopping Cart <FaShoppingCart />
+            </Link>
+
+            
             <Form className="d-flex">
               <Form.Control
                 type="search"
@@ -86,6 +93,7 @@ const MyNav = () => {
                 <i className="bi bi-sun"></i>
                 <i className="bi bi-moon"></i>
               </Button>
+              
             </Form>
           </Navbar.Collapse>
         </Container>
