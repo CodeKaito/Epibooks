@@ -13,13 +13,12 @@ const Cart = () => {
 
   useEffect(() => {}, [onCart]);
 
-  // Funzione per calcolare il totale del carrello
   const calculateTotal = () => {
     let total = 0;
     onCart.forEach(item => {
       total += parseFloat(item.price);
     });
-    return total.toFixed(2); // Arrotonda il totale a due decimali
+    return total;
   };
 
   return (
@@ -65,7 +64,7 @@ const Cart = () => {
                           <div className="flex-grow-1">
                             <Card.Body style={{ width: "500px"}}>
                               <Card.Title>{item.title}</Card.Title>
-                              <Card.Text>Price: {item.price}</Card.Text>
+                              <Card.Text>Price: ${item.price}</Card.Text>
                               <Button
                                 variant="danger"
                                 onClick={() => handleRemoveFromCart(item.asin)}

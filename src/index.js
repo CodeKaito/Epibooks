@@ -8,7 +8,8 @@ import { SelectCategoryProvider } from "./context/SelectCategoryContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import { SelectedProvider } from "./context/SelectedContext";
 import { OffCanvassProvider } from "./context/OffCanvassContext";
-import { OnCartProvider } from "./context/OnCartContext"; 
+import { OnCartProvider } from "./context/OnCartContext";
+import { AlertProvider } from "./context/AlertContext"; 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -19,7 +20,9 @@ root.render(
         <SelectedProvider>
           <OnCartProvider> 
             <OffCanvassProvider>
-              <App />
+              <AlertProvider>
+                <App />
+              </AlertProvider>
             </OffCanvassProvider>
           </OnCartProvider>
         </SelectedProvider>

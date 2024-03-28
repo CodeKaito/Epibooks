@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { AlertSuccess, AlertDanger } from '../../Alerts/AlertComponent'; // Importa gli alert
+import { AlertSuccess, AlertDanger } from '../../Alerts/AlertComponent';
 
 const EditComment = ({ comment, title, getCommentsFromApi }) => {
 
@@ -13,8 +13,8 @@ const EditComment = ({ comment, title, getCommentsFromApi }) => {
   const [openEditCommentModal, setOpenEditCommentModal] = useState(false);
   const [editedComment, setEditedComment] = useState("");
   const [editedRating, setEditedRating] = useState(0);
-  const [showSuccessAlert, setShowSuccessAlert] = useState(false); // Stato per l'alert di successo
-  const [showErrorAlert, setShowErrorAlert] = useState(false); // Stato per l'alert di errore
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false); 
 
   useEffect(() => {
     setEditedComment(comment.comment);

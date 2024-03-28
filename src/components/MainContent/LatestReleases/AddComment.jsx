@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { AlertSuccess, AlertDanger } from '../../Alerts/AlertComponent';
 import { Modal, Button, Form, Dropdown, Container, Row, Col } from "react-bootstrap";
 import './style/addcomment.css';
 import { nanoid } from "nanoid";
+import { useAlert } from '../../../context/AlertContext'; // Importa useAlert dal contesto degli alert
 
 const AddComment = ({ title, asin, handleAddNewComment }) => {
   const [openNewCommentModal, setOpenNewCommentModal] = useState(false);
   const [selectedRating, setSelectedRating] = useState(0);
   const [comment, setComment] = useState("");
-  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
-  const [showErrorAlert, setShowErrorAlert] = useState(false);
+
+  const { showSuccessAlert, showErrorAlert } = useAlert(); // Ottieni le funzioni per mostrare gli alert dal contesto degli alert
 
   const handleAddCommentShow = () => setOpenNewCommentModal(!openNewCommentModal);
 
@@ -50,33 +50,24 @@ const AddComment = ({ title, asin, handleAddNewComment }) => {
       });
       if (res.ok) {
         console.log("Comment submitted successfully");
-        setShowSuccessAlert(true);
+        showSuccessAlert("Operazione completata con successo!"); // Mostra l'alert di successo utilizzando la funzione dal contesto degli alert
         setTimeout(() => {
           handleAddNewComment();
           setOpenNewCommentModal(false);
-          setShowSuccessAlert(false);
         }, 1000);
       } else {
         console.log("Error submitting comment");
-        setShowErrorAlert(true);
+        showErrorAlert("Si è verificato un errore durante l'operazione."); // Mostra l'alert di errore utilizzando la funzione dal contesto degli alert
       }
     } catch (error) {
       console.log("error", error);
-      setShowErrorAlert(true);
+      showErrorAlert("Si è verificato un errore durante l'operazione."); // Mostra l'alert di errore utilizzando la funzione dal contesto degli alert
     }
   };
 
   return (
     <>
-      {showSuccessAlert && (
-        <AlertSuccess message="Operazione completata con successo!" />
-      )}
-      {showErrorAlert && (
-        <AlertDanger message="Si è verificato un errore durante l'operazione." />
-      )}
-
-      <button className="btn btn-outline-primary mt-5 align-self-center addyourreview-button" onClick={handleAddCommentShow}>Add Your Review
-      </button>
+      <button className="btn btn-outline-primary mt-5 align-self-center addyourreview-button" onClick={handleAddCommentShow}>Add Your Review</button>
 
       {openNewCommentModal && (
         <Modal
