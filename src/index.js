@@ -8,11 +8,9 @@ import { SelectCategoryProvider } from "./context/SelectCategoryContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import { SelectedProvider } from "./context/SelectedContext";
 import { OffCanvassProvider } from "./context/OffCanvassContext";
-import { CartProvider } from "./context/CartContext";
 
 ReactDOM.render(
   <React.StrictMode>
-    <CartProvider>
       <SelectCategoryProvider>
         <ThemeProvider>
           <SelectedProvider>
@@ -22,7 +20,6 @@ ReactDOM.render(
           </SelectedProvider>
         </ThemeProvider>
       </SelectCategoryProvider>
-    </CartProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

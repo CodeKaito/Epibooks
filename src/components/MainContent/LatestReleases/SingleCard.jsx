@@ -6,7 +6,7 @@ import Card from "react-bootstrap/Card";
 import { FaShoppingCart } from "react-icons/fa";
 
 function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
-  const { selected, handleSelect } = useContext(SelectedContext);
+  const { selected, handleSelect, setSelected } = useContext(SelectedContext);
   const isSelected = selected.asin === asin;
 
   const handleShow = () => {
@@ -14,7 +14,7 @@ function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
   };
 
   const handleAddToCart = () => {
-    // Funzione per gestire l'aggiunta del prodotto al carrello
+    setSelected([...selected, { img, title, category, price, asin }]);
     console.log("Product added to cart:", title);
   };
 
