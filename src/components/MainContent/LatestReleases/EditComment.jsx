@@ -12,9 +12,9 @@ const EditComment = ({ comment, title, getCommentsFromApi }) => {
   const [editedRating, setEditedRating] = useState(0);
 
   useEffect(() => {
-    // Inizializza il campo di testo con il commento da modificare
+
     setEditedComment(comment.comment);
-    setEditedRating(comment.rate); // Imposta il rating del commento
+    setEditedRating(comment.rate);
   }, [comment.comment, comment.rate]);
 
   const handleCommentChange = (e) => {

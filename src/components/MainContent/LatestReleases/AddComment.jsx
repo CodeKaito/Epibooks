@@ -49,7 +49,7 @@ const AddComment = ({ title, asin, handleAddNewComment }) => {
         },
       });
       if (res.ok) {
-        console.log("comment submitted successfully");
+        console.log("Comment submitted successfully");
         setShowSuccessAlert(true);
         setTimeout(() => {
           handleAddNewComment();
@@ -57,7 +57,7 @@ const AddComment = ({ title, asin, handleAddNewComment }) => {
           setShowSuccessAlert(false);
         }, 1000);
       } else {
-        console.log("error submitting comment");
+        console.log("Error submitting comment");
         setShowErrorAlert(true);
       }
     } catch (error) {

@@ -17,12 +17,12 @@ const DeleteComment = ({ bookId, handleDeleteComment }) => {
           headers: {
             Authorization:
               "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWNkZGU5MGUwZWVkODAwMWEzY2FkNjEiLCJpYXQiOjE3MTE0NjM1NTcsImV4cCI6MTcxMjY3MzE1N30.whnXUzpEpxDxQlBm2xQ8IF25jBhlm6X4VSxtwbK1XlY",
-            "Content-Type": "application/json",
+              "Content-Type": "application/json",
           },
         }
       );
-      handleClose(); // Chiudi il modal dopo aver eliminato il commento
-      handleDeleteComment(); // Richiama la funzione per aggiornare i commenti
+      handleClose(); 
+      handleDeleteComment();
     } catch (error) {
       console.log("error", error);
     }
