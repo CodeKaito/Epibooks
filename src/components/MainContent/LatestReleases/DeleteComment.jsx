@@ -4,15 +4,19 @@ import { AlertSuccess, AlertDanger } from '../../Alerts/AlertComponent';
 import "./style/deleteComment.css";
 
 const DeleteComment = ({ bookId, handleDeleteComment }) => {
-
   const apiKey = process.env.REACT_APP_API_KEY;
   const [showModal, setShowModal] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false); 
   const [showErrorAlert, setShowErrorAlert] = useState(false); 
-  const handleClose = () => setShowModal(false);
+
+  const handleClose = () => {
+    setShowModal(false);
+  };
+  
   const handleShow = () => setShowModal(true);
 
-  const deleteCommentFunc = async () => {
+  const deleteCommentFunc = async (e) => {
+    e.preventDefault();
     try {
       await fetch(
         `https://striveschool-api.herokuapp.com/api/comments/${bookId}`,
@@ -24,15 +28,14 @@ const DeleteComment = ({ bookId, handleDeleteComment }) => {
           },
         }
       );
-      handleClose(); 
+  
+      setShowSuccessAlert(true);
+  
       handleDeleteComment();
-      setShowSuccessAlert(true); 
-      setTimeout(() => {
-        setShowSuccessAlert(false);
-      }, 3000);
+
     } catch (error) {
       console.log("error", error);
-      setShowErrorAlert(true); 
+      setShowErrorAlert(true);
     }
   };
 
@@ -42,10 +45,10 @@ const DeleteComment = ({ bookId, handleDeleteComment }) => {
 
       <Modal show={showModal} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Delete confermation</Modal.Title>
+          <Modal.Title>Delete confirmation</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Are you sure to delete this comment?
+          Are you sure you want to delete this comment?
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
@@ -55,10 +58,10 @@ const DeleteComment = ({ bookId, handleDeleteComment }) => {
             Delete
           </Button>
         </Modal.Footer>
-      </Modal>
 
-      {showSuccessAlert && <AlertSuccess message="Comment deleted successfully!" />}
-      {showErrorAlert && <AlertDanger message="Error deleting comment!" />}
+        {showSuccessAlert && <AlertSuccess message="Comment deleted successfully!" />}
+        {showErrorAlert && <AlertDanger message="Error deleting comment!" />}
+      </Modal>
     </>
   );
 };

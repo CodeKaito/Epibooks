@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Modal, Button, Form, Dropdown, Container, Row, Col } from "react-bootstrap";
 import './style/addcomment.css';
 import { nanoid } from "nanoid";
-import { useAlert } from '../../../context/AlertContext'; // Importa useAlert dal contesto degli alert
 
-const AddComment = ({ title, asin, handleAddNewComment }) => {
+const AddComment = ({ title, asin, handleAddNewComment, setShowSuccessAlert, setShowErrorAlert }) => {
+
+  const apiKey = process.env.REACT_APP_API_KEY;
+
   const [openNewCommentModal, setOpenNewCommentModal] = useState(false);
   const [selectedRating, setSelectedRating] = useState(0);
   const [comment, setComment] = useState("");
-
-  const { showSuccessAlert, showErrorAlert } = useAlert(); // Ottieni le funzioni per mostrare gli alert dal contesto degli alert
 
   const handleAddCommentShow = () => setOpenNewCommentModal(!openNewCommentModal);
 
@@ -44,29 +44,31 @@ const AddComment = ({ title, asin, handleAddNewComment }) => {
           elementId: asin,
         }),
         headers: {
-          Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWNkZGU5MGUwZWVkODAwMWEzY2FkNjEiLCJpYXQiOjE3MTE0NjM1NTcsImV4cCI6MTcxMjY3MzE1N30.whnXUzpEpxDxQlBm2xQ8IF25jBhlm6X4VSxtwbK1XlY",
+          Authorization: apiKey,
           "Content-type": "application/json",
         },
       });
       if (res.ok) {
         console.log("Comment submitted successfully");
-        showSuccessAlert("Operazione completata con successo!"); // Mostra l'alert di successo utilizzando la funzione dal contesto degli alert
+        setShowSuccessAlert(true);
         setTimeout(() => {
           handleAddNewComment();
           setOpenNewCommentModal(false);
+          setShowSuccessAlert(false);
         }, 1000);
       } else {
         console.log("Error submitting comment");
-        showErrorAlert("Si è verificato un errore durante l'operazione."); // Mostra l'alert di errore utilizzando la funzione dal contesto degli alert
+        setShowErrorAlert(true);
       }
     } catch (error) {
       console.log("error", error);
-      showErrorAlert("Si è verificato un errore durante l'operazione."); // Mostra l'alert di errore utilizzando la funzione dal contesto degli alert
+      setShowErrorAlert(true);
     }
   };
 
   return (
     <>
+      {/* Rimuovi gli alert dal componente AddComment */}
       <button className="btn btn-outline-primary mt-5 align-self-center addyourreview-button" onClick={handleAddCommentShow}>Add Your Review</button>
 
       {openNewCommentModal && (

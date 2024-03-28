@@ -18,15 +18,15 @@ export const AlertProvider = ({ children }) => {
   // Funzione per mostrare un alert di successo
   const showSuccessAlert = (message) => {
     setSuccessAlert(message);
-    // Nasconde automaticamente l'alert dopo 3 secondi
-    setTimeout(() => setSuccessAlert(null), 3000);
+    // Nasconde automaticamente l'alert dopo 5 secondi
+    setTimeout(() => setSuccessAlert(null), 5000);
   };
 
   // Funzione per mostrare un alert di errore
   const showErrorAlert = (message) => {
     setErrorAlert(message);
-    // Nasconde automaticamente l'alert dopo 3 secondi
-    setTimeout(() => setErrorAlert(null), 3000);
+    // Nasconde automaticamente l'alert dopo 5 secondi
+    setTimeout(() => setErrorAlert(null), 5000);
   };
 
   // Valori da passare al contesto degli alert

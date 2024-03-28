@@ -12,9 +12,7 @@ const Homepage = () => {
   const { theme } = useContext(ThemeContext);
   return (
     <QueryProvider>
-      <div
-        className={`${theme === "light" ? "bg-light" : "bg-dark text-light"}`}
-      >
+      <div className={`${theme === "light" ? "bg-light" : "bg-dark text-light"}`}>
         <MyNav />
         <Welcome />
         <AllBooks />

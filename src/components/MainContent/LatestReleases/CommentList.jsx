@@ -6,12 +6,7 @@ import { ListGroup } from "react-bootstrap";
 
 import SingleComment from "./SingleComment";
 
-const CommentList = ({
-  comment,
-  handleDeleteComment,
-  title,
-  getCommentsFromApi,
-}) => {
+const CommentList = ({ comment, handleDeleteComment, title, getCommentsFromApi }) => {
   return (
     <>
       <ListGroup

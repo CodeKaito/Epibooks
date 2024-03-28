@@ -15,6 +15,8 @@ const CommentArea = () => {
   const { selected } = useContext(SelectedContext);
   const [bookComments, setBookComments] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
 
   const getCommentsFromApi = useCallback(async () => {
     try {
@@ -66,6 +68,17 @@ const CommentArea = () => {
 
   return (
     <>
+    {showSuccessAlert && (
+        <div className="alert alert-success" role="alert">
+          Comment successfully added.
+        </div>
+      )}
+      {showErrorAlert && (
+        <div className="alert alert-danger" role="alert">
+          Error while adding the comment, try again later.
+        </div>
+      )}
+
       {!selected.asin && !isBookDetailsPage ? (
         <div key={nanoid()}>
           <Spinner
@@ -130,6 +143,8 @@ const CommentArea = () => {
             title={selected.title}
             asin={selected.asin}
             handleAddNewComment={handleAddNewComment}
+            setShowSuccessAlert={setShowSuccessAlert}
+            setShowErrorAlert={setShowErrorAlert}
             key={nanoid()}
           />
         </div>
