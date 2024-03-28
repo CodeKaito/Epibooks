@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { SelectedContext } from "../../../context/SelectedContext";
-import { OnCartContext } from "../../../context/OnCartContext"; // Importa il nuovo contesto
+import { OnCartContext } from "../../../context/OnCartContext";
 import "./style/singleCard.css";
 import Card from "react-bootstrap/Card";
 import { FaShoppingCart } from "react-icons/fa";
