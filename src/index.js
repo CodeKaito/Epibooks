@@ -4,11 +4,11 @@ import "./index.css";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-
 import { SelectCategoryProvider } from "./context/SelectCategoryContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import { SelectedProvider } from "./context/SelectedContext";
 import { OffCanvassProvider } from "./context/OffCanvassContext";
+import { OnCartProvider } from "./context/OnCartContext"; 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -17,9 +17,11 @@ root.render(
     <SelectCategoryProvider>
       <ThemeProvider>
         <SelectedProvider>
-          <OffCanvassProvider>
-            <App />
-          </OffCanvassProvider>
+          <OnCartProvider> 
+            <OffCanvassProvider>
+              <App />
+            </OffCanvassProvider>
+          </OnCartProvider>
         </SelectedProvider>
       </ThemeProvider>
     </SelectCategoryProvider>

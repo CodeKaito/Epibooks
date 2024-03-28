@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { SelectedContext } from "../../../context/SelectedContext";
+import { OnCartContext } from "../../../context/OnCartContext"; // Importa il nuovo contesto
 import "./style/singleCard.css";
 import Card from "react-bootstrap/Card";
 import { FaShoppingCart } from "react-icons/fa";
@@ -9,14 +10,18 @@ function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
   const { selected, handleSelect } = useContext(SelectedContext);
   const isSelected = selected.asin === asin;
 
+  const { onCart, handleSelectOnCart } = useContext(OnCartContext);
+
   const handleShow = () => {
     handleSelect(asin, title);
   };
 
   const handleAddToCart = () => {
-    // setSelected([...selected, { img, title, category, price, asin }]);
-    console.log("Product added to cart:", title);
-  };
+  handleSelectOnCart({ title, category, price, img });
+  console.log("Product added to cart:", title);
+  console.log("Cart items:", onCart);
+};
+  
   
   return (
     <>
@@ -40,10 +45,7 @@ function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
             <Link to={`/details/${asin}`} className="btn btn-outline-success">
               Details {btnSeeMore}
             </Link>
-            <button
-              className="btn btn-outline-primary"
-              onClick={handleAddToCart}
-            >
+            <button className="btn btn-outline-primary" onClick={handleAddToCart}>
               <FaShoppingCart />
             </button>
           </div>
