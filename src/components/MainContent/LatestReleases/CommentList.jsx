@@ -6,7 +6,7 @@ import { ListGroup } from "react-bootstrap";
 
 import SingleComment from "./SingleComment";
 
-const CommentList = ({ comment, handleDeleteComment, title, getCommentsFromApi }) => {
+const CommentList = ({ comment, handleDeleteComment, title, getCommentsFromApi, setShowSuccessDeleteAlert, setShowErrorDeleteAlert, setShowSuccessEditAlert, setShowErrorEditAlert }) => {
   return (
     <>
       <ListGroup
@@ -21,6 +21,10 @@ const CommentList = ({ comment, handleDeleteComment, title, getCommentsFromApi }
           handleDeleteComment={handleDeleteComment}
           getCommentsFromApi={getCommentsFromApi}
           key={nanoid()}
+          setShowSuccessDeleteAlert={setShowSuccessDeleteAlert}
+          setShowErrorDeleteAlert={setShowErrorDeleteAlert}
+          setShowSuccessEditAlert={setShowSuccessEditAlert}
+          setShowErrorEditAlert={setShowErrorEditAlert}
         />
       </ListGroup>
     </>

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { SelectedContext } from "../../../context/SelectedContext";
 import { OnCartContext } from "../../../context/OnCartContext";
@@ -7,21 +7,32 @@ import Card from "react-bootstrap/Card";
 import { FaShoppingCart } from "react-icons/fa";
 
 function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
+  const [successAddToCart, setSuccessAddToCart] = useState(false);
   const { selected, handleSelect } = useContext(SelectedContext);
   const isSelected = selected.asin === asin;
 
   const { onCart, handleSelectOnCart } = useContext(OnCartContext);
+
+  useEffect(() => {
+    if (successAddToCart) {
+      const timer = setTimeout(() => {
+        setSuccessAddToCart(false);
+      }, 1500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [successAddToCart]);
 
   const handleShow = () => {
     handleSelect(asin, title);
   };
 
   const handleAddToCart = () => {
-  handleSelectOnCart({ title, category, price, img });
-  console.log("Product added to cart:", title);
-  console.log("Cart items:", onCart);
-};
-  
+    handleSelectOnCart({ title, category, price, img });
+    console.log("Product added to cart:", title);
+    console.log("Cart items:", onCart);
+    setSuccessAddToCart(true);
+  };
   
   return (
     <>
@@ -51,6 +62,11 @@ function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
           </div>
         </Card.Body>
       </Card>
+      {successAddToCart && (
+        <div className="alert alert-success position-fixed top-50 start-50 translate-middle" style={{ zIndex: 999 }} role="alert">
+          Product added to cart successfully!
+        </div>
+      )}
     </>
   );
 }

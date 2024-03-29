@@ -68,7 +68,7 @@ const AddComment = ({ title, asin, handleAddNewComment, setShowSuccessAlert, set
 
   return (
     <>
-      {/* Rimuovi gli alert dal componente AddComment */}
+      
       <button className="btn btn-outline-primary mt-5 align-self-center addyourreview-button" onClick={handleAddCommentShow}>Add Your Review</button>
 
       {openNewCommentModal && (

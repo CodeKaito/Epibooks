@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { AlertSuccess, AlertDanger } from '../../Alerts/AlertComponent'; 
 import "./style/deleteComment.css";
 
-const DeleteComment = ({ bookId, handleDeleteComment }) => {
+const DeleteComment = ({ bookId, handleDeleteComment, setShowSuccessDeleteAlert, setShowErrorDeleteAlert }) => {
   const apiKey = process.env.REACT_APP_API_KEY;
   const [showModal, setShowModal] = useState(false);
-  const [showSuccessAlert, setShowSuccessAlert] = useState(false); 
-  const [showErrorAlert, setShowErrorAlert] = useState(false); 
 
   const handleClose = () => {
     setShowModal(false);
@@ -28,14 +25,19 @@ const DeleteComment = ({ bookId, handleDeleteComment }) => {
           },
         }
       );
-  
-      setShowSuccessAlert(true);
+
+      setShowSuccessDeleteAlert(true);
+      
+      setTimeout(() => {
+        setShowSuccessDeleteAlert(false);
+      }, 2000);
+      
   
       handleDeleteComment();
 
     } catch (error) {
       console.log("error", error);
-      setShowErrorAlert(true);
+      setShowErrorDeleteAlert(true);
     }
   };
 
@@ -58,9 +60,6 @@ const DeleteComment = ({ bookId, handleDeleteComment }) => {
             Delete
           </Button>
         </Modal.Footer>
-
-        {showSuccessAlert && <AlertSuccess message="Comment deleted successfully!" />}
-        {showErrorAlert && <AlertDanger message="Error deleting comment!" />}
       </Modal>
     </>
   );

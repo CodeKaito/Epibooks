@@ -17,6 +17,10 @@ const CommentArea = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [showSuccessDeleteAlert, setShowSuccessDeleteAlert] = useState(false);
+  const [showErrorDeleteAlert, setShowErrorDeleteAlert] = useState(false);
+  const [showSuccessEditAlert, setShowSuccessEditAlert] = useState(false);
+  const [showErrorEditAlert, setShowErrorEditAlert] = useState(false);
 
   const getCommentsFromApi = useCallback(async () => {
     try {
@@ -68,7 +72,7 @@ const CommentArea = () => {
 
   return (
     <>
-    {showSuccessAlert && (
+      {showSuccessAlert && (
         <div className="alert alert-success" role="alert">
           Comment successfully added.
         </div>
@@ -76,6 +80,27 @@ const CommentArea = () => {
       {showErrorAlert && (
         <div className="alert alert-danger" role="alert">
           Error while adding the comment, try again later.
+        </div>
+      )}
+
+      {showSuccessDeleteAlert && (
+        <div className="alert alert-success" role="alert">
+          Comment successfully deleted.
+        </div>
+      )}
+      {showErrorDeleteAlert && (
+        <div className="alert alert-danger" role="alert">
+          Error while deleting the comment, try again later.
+        </div>
+      )}
+      {showSuccessEditAlert && (
+        <div className="alert alert-success" role="alert">
+          Comment successfully edited.
+        </div>
+      )}
+      {showErrorEditAlert && (
+        <div className="alert alert-danger" role="alert">
+          Error while editing the comment, try again later.
         </div>
       )}
 
@@ -102,9 +127,7 @@ const CommentArea = () => {
             </h3>
           ) : (
             <div
-              className={`sticky-top ${
-                isScrolled ? "scrolled" : ""
-              }`}
+              className={`sticky-top ${isScrolled ? "scrolled" : ""}`}
               style={{
                 padding: "10px",
                 width: "100%",
@@ -128,6 +151,10 @@ const CommentArea = () => {
                 key={nanoid()}
                 handleDeleteComment={handleDeleteComment}
                 getCommentsFromApi={getCommentsFromApi}
+                setShowSuccessDeleteAlert={setShowSuccessDeleteAlert}
+                setShowErrorDeleteAlert={setShowErrorDeleteAlert}
+                setShowSuccessEditAlert={setShowSuccessEditAlert}
+                setShowErrorEditAlert={setShowErrorEditAlert}
               />
             ))
           ) : (

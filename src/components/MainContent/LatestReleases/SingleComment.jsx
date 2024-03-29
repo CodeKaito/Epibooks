@@ -8,6 +8,10 @@ const SingleComment = ({
   handleDeleteComment,
   title,
   getCommentsFromApi,
+  setShowSuccessDeleteAlert,
+  setShowErrorDeleteAlert,
+  setShowSuccessEditAlert,
+  setShowErrorEditAlert
 }) => {
   const commentTimeStamp = new Date(comment.createdAt);
   const day = commentTimeStamp.getDate().toString().padStart(2, "0");
@@ -61,6 +65,8 @@ const SingleComment = ({
             <DeleteComment
               bookId={comment._id}
               handleDeleteComment={handleDeleteComment}
+              setShowSuccessDeleteAlert={setShowSuccessDeleteAlert}
+              setShowErrorDeleteAlert={setShowErrorDeleteAlert}
             />
             <EditComment
               comment={comment}
@@ -68,6 +74,8 @@ const SingleComment = ({
               renderedStars={renderStars}
               bookId={comment._id}
               getCommentsFromApi={getCommentsFromApi}
+              setShowSuccessEditAlert={setShowSuccessEditAlert}
+              setShowErrorEditAlert={setShowErrorEditAlert}
             />
           </div>
         </div>

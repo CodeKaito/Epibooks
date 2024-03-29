@@ -5,16 +5,13 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { AlertSuccess, AlertDanger } from '../../Alerts/AlertComponent';
 
-const EditComment = ({ comment, title, getCommentsFromApi }) => {
+const EditComment = ({ comment, title, getCommentsFromApi, setShowSuccessEditAlert, setShowErrorEditAlert }) => {
 
   const apiKey = process.env.REACT_APP_API_KEY;
   const [openEditCommentModal, setOpenEditCommentModal] = useState(false);
   const [editedComment, setEditedComment] = useState("");
   const [editedRating, setEditedRating] = useState(0);
-  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
-  const [showErrorAlert, setShowErrorAlert] = useState(false); 
 
   useEffect(() => {
     setEditedComment(comment.comment);
@@ -49,18 +46,20 @@ const EditComment = ({ comment, title, getCommentsFromApi }) => {
         body: JSON.stringify(updatedComment),
       });
       if (res.ok) {
-        setShowSuccessAlert(true); 
+        setShowSuccessEditAlert(true); 
         setTimeout(() => {
           getCommentsFromApi();
           setOpenEditCommentModal(false);
-          setShowSuccessAlert(false); 
-        }, 1000);
+          setShowSuccessEditAlert(false);
+        }, 2000);
       } else {
-        setShowErrorAlert(true); 
+        setTimeout(() => {
+          setShowErrorEditAlert(true); 
+        }, 2000);
       }
     } catch (error) {
       console.log(error);
-      setShowErrorAlert(true);
+      setShowErrorEditAlert(true);
     }
   };
 
@@ -100,8 +99,6 @@ const EditComment = ({ comment, title, getCommentsFromApi }) => {
             </Container>
           </Modal.Header>
           <Modal.Body className="d-flex flex-column align-items-start justify-content-center">
-            {showSuccessAlert && <AlertSuccess message="Comment updated successfully!" />} {/* Renderizza l'alert di successo */}
-            {showErrorAlert && <AlertDanger message="Error updating comment!" />} {/* Renderizza l'alert di errore */}
             <Form onSubmit={handleEditSubmit}>
               <Form.Group className="mb-3" controlId="">
                 <Form.Label>What do you think about this book?</Form.Label>
