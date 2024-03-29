@@ -84,7 +84,7 @@ const Cart = () => {
                           <div className="flex-grow-1">
                             <Card.Body
                               style={{
-                                width: "500px",
+                                width: "400px",
                                 color: theme === "light" ? "black" : "white",
                               }}
                             >

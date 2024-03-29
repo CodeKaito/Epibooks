@@ -56,7 +56,7 @@ const MyNav = () => {
               {myNavLinks.map((link) =>
                 link.dropdown ? (
                   <NavDropdown
-                    key={generateUniqueId()} // Utilizza la funzione di generazione ID
+                    key={generateUniqueId()}
                     title={link.title}
                     menuVariant="dark"
                     className={selectedCategory.toLowerCase() === link.title.toLowerCase() ? "active" : ""}
@@ -64,7 +64,7 @@ const MyNav = () => {
                     {link.dropdownItems.map((dropdownEl) => (
                       <NavDropdown.Item
                         href={dropdownEl.href}
-                        key={generateUniqueId()} // Utilizza la funzione di generazione ID
+                        key={generateUniqueId()}
                         className={dropdownEl.className}
                         onClick={() => handleCategorySelect(dropdownEl.title)}
                       >
@@ -74,7 +74,7 @@ const MyNav = () => {
                   </NavDropdown>
                 ) : (
                   <Nav.Link
-                    key={generateUniqueId()} // Utilizza la funzione di generazione ID
+                    key={generateUniqueId()}
                     as={Link}
                     to={link.href}
                     className={link.className}
@@ -85,7 +85,7 @@ const MyNav = () => {
               )}
             </Nav>
             
-            <Link to="/cart" className="btn btn-outline-light me-3 position-relative">
+            <Link to="/cart" className="btn btn-outline-light me-3 position-relative mt-2">
               Shopping Cart <FaShoppingCart />
               {cartItemCount > 0 && (
                 <span className={`position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger ${isCartJumping ? 'jump-animation' : ''}`}>
@@ -100,7 +100,7 @@ const MyNav = () => {
               <Form.Control
                 type="search"
                 placeholder="Search"
-                className="me-2"
+                className="me-2 mt-2"
                 aria-label="Search"
                 onChange={(e) => setQuery(e.target.value)}
               />

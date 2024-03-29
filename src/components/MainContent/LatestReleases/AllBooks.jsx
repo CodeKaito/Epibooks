@@ -45,15 +45,15 @@ const AllBooks = () => {
         setLoading(false);
       }
     };
-  
+
     fetchData();
   }, [query, setFilteredBooks, setQuery, selectedCategory]);
 
   const renderBooks = filteredBooks.slice(0, 100).map((book) => (
     <Col
       xs={12}
-      sm={6}
-      lg={4}
+      lg={6}
+      xl={4}
       className="d-flex justify-content-center align-items-center"
       key={generateUniqueId()}
     >

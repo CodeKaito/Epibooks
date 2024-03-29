@@ -25,17 +25,22 @@ function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
     }
   }, [successAddToCart]);
 
+  useEffect(() => {
+
+    localStorage.setItem("cart", JSON.stringify(onCart));
+  }, [onCart]);
+
   const handleShow = () => {
     handleSelect(asin, title);
   };
 
   const handleAddToCart = () => {
-    const productId = generateUniqueId(); // Utilizza la funzione di generazione ID
+    const productId = generateUniqueId();
     handleSelectOnCart({ id: productId, title, category, price, img });
     console.log("Product added to cart:", title);
     console.log("Cart items:", onCart);
     setSuccessAddToCart(true);
-    setAddToCartCount(addToCartCount + 1); // Incrementa il conteggio delle aggiunte al carrello
+    setAddToCartCount(addToCartCount + 1); 
   };
 
   return (

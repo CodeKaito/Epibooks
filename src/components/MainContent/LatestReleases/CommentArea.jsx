@@ -71,7 +71,7 @@ const CommentArea = () => {
   }, []);
 
   return (
-    <>
+    <div data-testid="commentArea">
       {showSuccessAlert && (
         <div className="alert alert-success" role="alert">
           Comment successfully added.
@@ -176,7 +176,7 @@ const CommentArea = () => {
           />
         </div>
       ) : null}
-    </>
+    </div>
   );
 };
 
