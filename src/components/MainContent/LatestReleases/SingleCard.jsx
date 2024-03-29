@@ -9,6 +9,7 @@ import { nanoid } from "nanoid";
 
 function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
   const [successAddToCart, setSuccessAddToCart] = useState(false);
+  const [addToCartCount, setAddToCartCount] = useState(0); // Stato per il conteggio delle aggiunte al carrello
   const { selected, handleSelect } = useContext(SelectedContext);
   const isSelected = selected.asin === asin;
 
@@ -34,8 +35,8 @@ function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
     console.log("Product added to cart:", title);
     console.log("Cart items:", onCart);
     setSuccessAddToCart(true);
+    setAddToCartCount(addToCartCount + 1); // Incrementa il conteggio delle aggiunte al carrello
   };
-  
   
   return (
     <>
@@ -59,8 +60,11 @@ function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
             <Link to={`/details/${asin}`} className="btn btn-outline-success">
               Details {btnSeeMore}
             </Link>
-            <button className="btn btn-outline-primary" onClick={handleAddToCart}>
+            <button className="btn btn-outline-primary position-relative" onClick={handleAddToCart}>
               <FaShoppingCart />
+              {addToCartCount > 0 && (
+                <span className="badge bg-danger position-absolute top-0 end-0 translate-middle">{addToCartCount}</span>
+              )}
             </button>
           </div>
         </Card.Body>
