@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+import { nanoid } from "nanoid";
 
 const OnCartContext = createContext();
 
@@ -6,13 +7,16 @@ const OnCartProvider = ({ children }) => {
   const [onCart, setOnCart] = useState([]);
 
   const handleSelectOnCart = (item) => {
-    setOnCart(prevCart => [...prevCart, item]);
+    const productId = nanoid();
+    setOnCart(prevCart => [...prevCart, { ...item, id: productId }]);
   };
+  
 
-  const handleRemoveFromCart = (asin) => {
-    const updatedCart = onCart.filter(item => item.asin !== asin);
+  const handleRemoveFromCart = (productId) => {
+    const updatedCart = onCart.filter(item => item.id !== productId);
     setOnCart(updatedCart);
   };
+  
 
   return (
     <OnCartContext.Provider value={{ onCart, handleSelectOnCart, handleRemoveFromCart }}>

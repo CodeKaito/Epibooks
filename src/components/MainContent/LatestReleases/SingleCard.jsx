@@ -5,6 +5,7 @@ import { OnCartContext } from "../../../context/OnCartContext";
 import "./style/singleCard.css";
 import Card from "react-bootstrap/Card";
 import { FaShoppingCart } from "react-icons/fa";
+import { nanoid } from "nanoid";
 
 function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
   const [successAddToCart, setSuccessAddToCart] = useState(false);
@@ -28,11 +29,13 @@ function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
   };
 
   const handleAddToCart = () => {
-    handleSelectOnCart({ title, category, price, img });
+    const productId = nanoid(); 
+    handleSelectOnCart({ id: productId, title, category, price, img }); 
     console.log("Product added to cart:", title);
     console.log("Cart items:", onCart);
     setSuccessAddToCart(true);
   };
+  
   
   return (
     <>

@@ -15,7 +15,7 @@ const Cart = () => {
 
   const calculateTotal = () => {
     let total = 0;
-    onCart.forEach(item => {
+    onCart.forEach((item) => {
       total += parseFloat(item.price);
     });
     return total.toFixed(2);
@@ -48,9 +48,9 @@ const Cart = () => {
             <Row className="g-4">
               <Col md={8}>
                 <div className="border p-3">
-                  {onCart.map((item, index) => (
+                  {onCart.map((item) => (
                     <div
-                      key={index}
+                      key={item.id} // Utilizza l'ID generato con nanoid come chiave univoca
                       className="mb-3"
                       style={{ maxWidth: "100px", maxHeight: "200px" }}
                     >
@@ -62,12 +62,29 @@ const Cart = () => {
                             alt={item.title}
                           />
                           <div className="flex-grow-1">
-                            <Card.Body style={{ width: "500px"}}>
-                              <Card.Title>{item.title}</Card.Title>
-                              <Card.Text>Price: ${item.price}</Card.Text>
+                            <Card.Body
+                              style={{
+                                width: "500px",
+                                color: theme === "light" ? "black" : "white",
+                              }}
+                            >
+                              <Card.Title
+                                style={{
+                                  color: theme === "light" ? "black" : "white",
+                                }}
+                              >
+                                {item.title}
+                              </Card.Title>
+                              <Card.Text
+                                style={{
+                                  color: theme === "light" ? "black" : "white",
+                                }}
+                              >
+                                Price: ${item.price}
+                              </Card.Text>
                               <Button
                                 variant="danger"
-                                onClick={() => handleRemoveFromCart(item.asin)}
+                                onClick={() => handleRemoveFromCart(item.id)}
                               >
                                 Remove from Cart
                               </Button>

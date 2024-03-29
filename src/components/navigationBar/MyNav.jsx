@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
@@ -13,15 +13,29 @@ import { Button, NavDropdown } from "react-bootstrap";
 import { nanoid } from "nanoid";
 import { SelectCategoryContext } from "../../context/SelectCategoryContext"; 
 import { FaShoppingCart } from "react-icons/fa";
+import { OnCartContext } from "../../context/OnCartContext";
+import './mynav.css';
 
 const MyNav = () => {
   const { setQuery } = useContext(QueryContext);
   const { toggleTheme } = useContext(ThemeContext);
-  const { selectedCategory, setSelectedCategory } = useContext(SelectCategoryContext); // Get selectedCategory and setSelectedCategory from SelectCategoryContext
+  const { selectedCategory, setSelectedCategory } = useContext(SelectCategoryContext); 
+  const { onCart } = useContext(OnCartContext);
+
+  const [cartItemCount, setCartItemCount] = useState(0);
+  const [isCartJumping, setIsCartJumping] = useState(false);
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category); 
   };
+
+  useEffect(() => {
+    setCartItemCount(onCart.length);
+    setIsCartJumping(true); // Attiva l'animazione
+    setTimeout(() => {
+      setIsCartJumping(false); // Disattiva l'animazione dopo 500ms
+    }, 500);
+  }, [onCart]);
 
   return (
     <>
@@ -71,8 +85,14 @@ const MyNav = () => {
               )}
             </Nav>
             
-            <Link to="/cart" className="btn btn-outline-light me-3">
+            <Link to="/cart" className="btn btn-outline-light me-3 position-relative">
               Shopping Cart <FaShoppingCart />
+              {cartItemCount > 0 && (
+                <span className={`position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger ${isCartJumping ? 'jump-animation' : ''}`}>
+                  {cartItemCount}
+                  <span className="visually-hidden">items in cart</span>
+                </span>
+              )}
             </Link>
 
             
