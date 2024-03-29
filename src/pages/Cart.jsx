@@ -18,7 +18,7 @@ const Cart = () => {
     onCart.forEach(item => {
       total += parseFloat(item.price);
     });
-    return total;
+    return total.toFixed(2);
   };
 
   return (
