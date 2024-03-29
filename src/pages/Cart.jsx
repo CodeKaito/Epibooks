@@ -21,6 +21,17 @@ const Cart = () => {
     return total.toFixed(2);
   };
 
+  // Raggruppa i prodotti per titolo e conta il numero di occorrenze
+  const groupedProducts = onCart.reduce((acc, item) => {
+    const existingItem = acc.find((group) => group.title === item.title);
+    if (existingItem) {
+      existingItem.count++;
+    } else {
+      acc.push({ ...item, count: 1 });
+    }
+    return acc;
+  }, []);
+
   return (
     <QueryProvider>
       <div
@@ -48,9 +59,9 @@ const Cart = () => {
             <Row className="g-4">
               <Col md={8}>
                 <div className="border p-3">
-                  {onCart.map((item) => (
+                  {groupedProducts.map((item) => (
                     <div
-                      key={item.id} // Utilizza l'ID generato con nanoid come chiave univoca
+                      key={item.id}
                       className="mb-3"
                       style={{ maxWidth: "100px", maxHeight: "200px" }}
                     >
@@ -80,7 +91,7 @@ const Cart = () => {
                                   color: theme === "light" ? "black" : "white",
                                 }}
                               >
-                                Price: ${item.price}
+                                Price: ${item.price} {item.count > 1 && `x ${item.count} `}
                               </Card.Text>
                               <Button
                                 variant="danger"
