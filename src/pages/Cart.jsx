@@ -8,10 +8,18 @@ import { QueryProvider } from "../context/QueryContext";
 
 const Cart = () => {
   const { onCart, handleRemoveFromCart } = useContext(OnCartContext);
-  const [showAlert, setShowAlert] = useState(false);
+  const [successRemoveFromCart, setSuccessRemoveFromCart] = useState(false);
   const { theme } = useContext(ThemeContext);
 
-  useEffect(() => {}, [onCart]);
+  useEffect(() => {
+    if (successRemoveFromCart) {
+      const timer = setTimeout(() => {
+        setSuccessRemoveFromCart(false);
+      }, 1500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [successRemoveFromCart]);
 
   const calculateTotal = () => {
     let total = 0;
@@ -21,7 +29,6 @@ const Cart = () => {
     return total.toFixed(2);
   };
 
-  // Raggruppa i prodotti per titolo e conta il numero di occorrenze
   const groupedProducts = onCart.reduce((acc, item) => {
     const existingItem = acc.find((group) => group.title === item.title);
     if (existingItem) {
@@ -40,15 +47,17 @@ const Cart = () => {
         } d-flex flex-column min-vh-100`}
       >
         <MyNav />
-        <Container className="py-4 flex-grow-1">
+        <Container className="py-4 flex-grow-1 position-relative">
           <h1>Cart</h1>
-          {showAlert && (
+          {successRemoveFromCart && (
             <Alert
               variant="success"
-              onClose={() => setShowAlert(false)}
+              onClose={() => setSuccessRemoveFromCart(false)}
               dismissible
+              className="position-absolute top-50 start-50 translate-middle"
+              style={{ zIndex: 999 }}
             >
-              Item removed from cart.
+              Item removed from cart successfully!
             </Alert>
           )}
           {onCart.length === 0 ? (
@@ -95,7 +104,10 @@ const Cart = () => {
                               </Card.Text>
                               <Button
                                 variant="danger"
-                                onClick={() => handleRemoveFromCart(item.id)}
+                                onClick={() => {
+                                  handleRemoveFromCart(item.id);
+                                  setSuccessRemoveFromCart(true);
+                                }}
                               >
                                 Remove from Cart
                               </Button>

@@ -1,9 +1,7 @@
 import React from "react";
 
 import { nanoid } from "nanoid";
-
 import { ListGroup } from "react-bootstrap";
-
 import SingleComment from "./SingleComment";
 
 const CommentList = ({ comment, handleDeleteComment, title, getCommentsFromApi, setShowSuccessDeleteAlert, setShowErrorDeleteAlert, setShowSuccessEditAlert, setShowErrorEditAlert }) => {
