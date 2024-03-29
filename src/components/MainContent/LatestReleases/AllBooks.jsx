@@ -18,7 +18,7 @@ const AllBooks = () => {
   const { selectedCategory } = useContext(SelectCategoryContext);
   const { show, setShow } = useContext(OffCanvassContext);
   const [filteredBooks, setFilteredBooks] = useState([]);
-  const [loading, setLoading] = useState(false); // Stato per gestire il caricamento dei dati
+  const [loading, setLoading] = useState(false);
   const { width } = useWindowDimension();
 
   const handleCloseCanvass = () => setShow(false);
