@@ -5,11 +5,11 @@ import { OnCartContext } from "../../../context/OnCartContext";
 import "./style/singleCard.css";
 import Card from "react-bootstrap/Card";
 import { FaShoppingCart } from "react-icons/fa";
-import { nanoid } from "nanoid";
+import generateUniqueId from "../../../generator/IDgenerator"; 
 
 function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
   const [successAddToCart, setSuccessAddToCart] = useState(false);
-  const [addToCartCount, setAddToCartCount] = useState(0); // Stato per il conteggio delle aggiunte al carrello
+  const [addToCartCount, setAddToCartCount] = useState(0);
   const { selected, handleSelect } = useContext(SelectedContext);
   const isSelected = selected.asin === asin;
 
@@ -30,14 +30,14 @@ function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
   };
 
   const handleAddToCart = () => {
-    const productId = nanoid(); 
-    handleSelectOnCart({ id: productId, title, category, price, img }); 
+    const productId = generateUniqueId(); // Utilizza la funzione di generazione ID
+    handleSelectOnCart({ id: productId, title, category, price, img });
     console.log("Product added to cart:", title);
     console.log("Cart items:", onCart);
     setSuccessAddToCart(true);
     setAddToCartCount(addToCartCount + 1); // Incrementa il conteggio delle aggiunte al carrello
   };
-  
+
   return (
     <>
       <Card

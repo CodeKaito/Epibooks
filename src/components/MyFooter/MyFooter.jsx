@@ -1,8 +1,6 @@
 import React from "react";
-
 import { leftFooterPanelLinks, rightFooterPanelLinks } from "./data/myfooter";
-import { nanoid } from "nanoid";
-
+import generateUniqueId from "../../generator/IDgenerator";
 import './myfooter.css'
 
 const MyFooter = () => {
@@ -20,10 +18,10 @@ const MyFooter = () => {
           <div className="col-md-3 mb-md-0 mb-3">
             <h5 className="text-uppercase">Links</h5>
             <ul className="list-unstyled">
-              {leftFooterPanelLinks.map((link) => {
+              {leftFooterPanelLinks.map((link, index) => {
                 return (
-                  <a href="/" key={nanoid()} className="footer-anchor">
-                    <li key={link.index}>{link.title}</li>
+                  <a href="/" key={generateUniqueId()} className="footer-anchor">
+                    <li key={index}>{link.title}</li>
                   </a>
                 );
               })}
@@ -33,10 +31,10 @@ const MyFooter = () => {
           <div className="col-md-3 mb-md-0 mb-3">
             <h5 className="text-uppercase">Links</h5>
             <ul className="list-unstyled">
-              {rightFooterPanelLinks.map((link) => {
+              {rightFooterPanelLinks.map((link, index) => {
                 return (
-                  <a href="/" key={nanoid()} className="footer-anchor">
-                    <li key={link.index}>{link.title}</li>
+                  <a href="/" key={generateUniqueId()} className="footer-anchor">
+                    <li key={index}>{link.title}</li>
                   </a>
                 );
               })}

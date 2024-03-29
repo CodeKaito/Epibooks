@@ -8,7 +8,7 @@ import useWindowDimension from "../../../hooks/useWindowDimension";
 import { Container, Row, Col, Alert, Offcanvas, Spinner } from "react-bootstrap";
 import SingleCard from "./SingleCard";
 import CommentArea from "./CommentArea";
-import { nanoid } from "nanoid";
+import generateUniqueId from "../../../generator/IDgenerator";
 
 import "./style/allbooks.css";
 
@@ -55,10 +55,10 @@ const AllBooks = () => {
       sm={6}
       lg={4}
       className="d-flex justify-content-center align-items-center"
-      key={nanoid()}
+      key={generateUniqueId()}
     >
       <SingleCard
-        key={nanoid()}
+        key={generateUniqueId()}
         img={book.img}
         title={book.title}
         price={book.price.toFixed(2)}
@@ -77,7 +77,7 @@ const AllBooks = () => {
           variant="danger"
           className="mt-5 mx-5"
           style={{ maxWidth: "700px" }}
-          key={nanoid()}
+          key={generateUniqueId()}
         >
           Ooops, sembra che non riesca a trovare nulla dalla tua ricerca, per favore riprova!
         </Alert>
@@ -92,10 +92,10 @@ const AllBooks = () => {
         className={`mainContainer  ${
           theme === "light" ? "bg-light" : "bg-dark text-light"
         }`}
-        key={nanoid()}
+        key={generateUniqueId()}
       >
-        <Row key={nanoid()}>
-          <Col xs={12} sm={8} className="m-0 booksContainer" key={nanoid()}>
+        <Row key={generateUniqueId()}>
+          <Col xs={12} sm={8} className="m-0 booksContainer" key={generateUniqueId()}>
             {loading ? (
               <div className="d-flex justify-content-center align-items-center" style={{ minHeight: "50vh" }}>
                 <Spinner animation="border" role="status">
@@ -103,8 +103,8 @@ const AllBooks = () => {
                 </Spinner>
               </div>
             ) : (
-              <div className="mainContainer-scrollable" key={nanoid()}>
-                <Row className="g-5" key={nanoid()}>
+              <div className="mainContainer-scrollable" key={generateUniqueId()}>
+                <Row className="g-5" key={generateUniqueId()}>
                   {renderBooks}
                   {renderErrorMsg()}
                 </Row>
@@ -131,9 +131,9 @@ const AllBooks = () => {
               xs={12}
               sm={4}
               className="m-0 commentsContainer"
-              key={nanoid()}
+              key={generateUniqueId()}
             >
-              <div className="commentsContainer-scrollable" key={nanoid()}>
+              <div className="commentsContainer-scrollable" key={generateUniqueId()}>
                 <CommentArea />
               </div>
             </Col>

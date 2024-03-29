@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { nanoid } from "nanoid";
+import generateUniqueId from '../generator/IDgenerator';
 
 const OnCartContext = createContext();
 
@@ -7,16 +7,14 @@ const OnCartProvider = ({ children }) => {
   const [onCart, setOnCart] = useState([]);
 
   const handleSelectOnCart = (item) => {
-    const productId = nanoid();
+    const productId = generateUniqueId(); 
     setOnCart(prevCart => [...prevCart, { ...item, id: productId }]);
   };
-  
 
   const handleRemoveFromCart = (productId) => {
     const updatedCart = onCart.filter(item => item.id !== productId);
     setOnCart(updatedCart);
   };
-  
 
   return (
     <OnCartContext.Provider value={{ onCart, handleSelectOnCart, handleRemoveFromCart }}>

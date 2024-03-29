@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { nanoid } from "nanoid";
+import generateUniqueId from "../../../generator/IDgenerator";
 
 import { ThemeContext } from "../../../context/ThemeContext";
 
@@ -15,26 +15,26 @@ const Welcome = () => {
 
   return (
     <>
-      <div
-        key={nanoid()}
+      <div data-testid="welcome-component"
+        key={generateUniqueId()}
         className={`container d-flex flex-column align-items-center justify-content-center jumbotron overflow-hidden ${
           theme === "light" ? "bg-light" : "bg-dark text-light"
         }`}
       >
-        <h1 key={nanoid()} className="jumbotron_title">
+        <h1 key={generateUniqueId()} className="jumbotron_title">
           EpiBooks
           <img src={logo} alt="EpiBooks_logo" />
         </h1>
-        <article key={nanoid()} className="jumbotron_subtitle">
+        <article key={generateUniqueId()} className="jumbotron_subtitle">
           Where Every Request Finds its Perfect Solution!
         </article>
 
-        <Carousel fade key={nanoid()}>
+        <Carousel fade key={generateUniqueId()}>
           {welcome.map((item) => {
             return (
-              <Carousel.Item key={nanoid()} className={item.className}>
+              <Carousel.Item key={generateUniqueId()} className={item.className}>
                 {<img src={item.src} alt={item.alt} className="carouselImg" />}
-                <Carousel.Caption key={nanoid()}>
+                <Carousel.Caption key={generateUniqueId()}>
                   <h2>{item.captionTitle}</h2>
                   <p>{item.captionDesc}</p>
                 </Carousel.Caption>

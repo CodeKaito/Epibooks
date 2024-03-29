@@ -1,4 +1,4 @@
-import { nanoid } from "nanoid";
+import generateUniqueId from "../../../generator/IDgenerator"; 
 import DeleteComment from "./DeleteComment";
 import "./style/singleComment.css";
 import EditComment from "./EditComment";
@@ -30,7 +30,7 @@ const SingleComment = ({
     const stars = [];
     for (let i = 0; i < 5; i++) {
       const starClassName = getStarClassName(i);
-      stars.push(<i className={starClassName} key={nanoid()} />);
+      stars.push(<i className={starClassName} key={generateUniqueId()} />);
     }
     return stars;
   };
@@ -40,7 +40,7 @@ const SingleComment = ({
       <div
         className="me-auto mb-3 bg-secondary bg-opacity-10 p-2 rounded singleCommentWrapper "
         style={{ width: "100%" }}
-        key={nanoid()}
+        key={generateUniqueId()}
       >
         <div className="d-block d-md-flex justify-content-start align-items-start gap-4">
           <div style={{ fontSize: ".7rem" }}>{formattedDate}</div>

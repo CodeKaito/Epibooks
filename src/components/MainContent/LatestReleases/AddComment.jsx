@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button, Form, Dropdown, Container, Row, Col } from "react-bootstrap";
 import './style/addcomment.css';
-import { nanoid } from "nanoid";
+import generateUniqueId from "../../../generator/IDgenerator";
 
 const AddComment = ({ title, asin, handleAddNewComment, setShowSuccessAlert, setShowErrorAlert }) => {
 
@@ -21,7 +21,7 @@ const AddComment = ({ title, asin, handleAddNewComment, setShowSuccessAlert, set
     const stars = [];
     for (let i = 0; i < 5; i++) {
       const starClassName = i < selectedRating ? "bi bi-star-fill" : "bi bi-star";
-      stars.push(<i className={starClassName} key={nanoid()}></i>);
+      stars.push(<i className={starClassName} key={generateUniqueId()}></i>);
     }
     return (
       <div className="mb-5">

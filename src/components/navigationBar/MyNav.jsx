@@ -10,7 +10,7 @@ import "../../assets/logo.css";
 import { QueryContext } from "../../context/QueryContext";
 import { ThemeContext } from "../../context/ThemeContext";
 import { Button, NavDropdown } from "react-bootstrap";
-import { nanoid } from "nanoid";
+import generateUniqueId from "../../generator/IDgenerator";
 import { SelectCategoryContext } from "../../context/SelectCategoryContext"; 
 import { FaShoppingCart } from "react-icons/fa";
 import { OnCartContext } from "../../context/OnCartContext";
@@ -56,7 +56,7 @@ const MyNav = () => {
               {myNavLinks.map((link) =>
                 link.dropdown ? (
                   <NavDropdown
-                    key={nanoid()}
+                    key={generateUniqueId()} // Utilizza la funzione di generazione ID
                     title={link.title}
                     menuVariant="dark"
                     className={selectedCategory.toLowerCase() === link.title.toLowerCase() ? "active" : ""}
@@ -64,7 +64,7 @@ const MyNav = () => {
                     {link.dropdownItems.map((dropdownEl) => (
                       <NavDropdown.Item
                         href={dropdownEl.href}
-                        key={dropdownEl.id}
+                        key={generateUniqueId()} // Utilizza la funzione di generazione ID
                         className={dropdownEl.className}
                         onClick={() => handleCategorySelect(dropdownEl.title)}
                       >
@@ -74,7 +74,7 @@ const MyNav = () => {
                   </NavDropdown>
                 ) : (
                   <Nav.Link
-                    key={link.id}
+                    key={generateUniqueId()} // Utilizza la funzione di generazione ID
                     as={Link}
                     to={link.href}
                     className={link.className}

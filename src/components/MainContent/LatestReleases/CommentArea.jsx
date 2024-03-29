@@ -5,7 +5,7 @@ import "../LatestReleases/style/commentArea.css";
 import AddComment from "./AddComment";
 import CommentList from "./CommentList";
 import { useLocation } from "react-router-dom";
-import { nanoid } from "nanoid";
+import generateUniqueId from "../../../generator/IDgenerator";
 
 const CommentArea = () => {
   const apiKey = process.env.REACT_APP_API_KEY;
@@ -105,7 +105,7 @@ const CommentArea = () => {
       )}
 
       {!selected.asin && !isBookDetailsPage ? (
-        <div key={nanoid()}>
+        <div key={generateUniqueId()}>
           <Spinner
             animation="grow"
             className="d-flex justify-content-center mx-auto align-items-center mt-5"
@@ -119,10 +119,10 @@ const CommentArea = () => {
       {selected.asin || isBookDetailsPage ? (
         <div
           className="d-flex flex-column justify-content-center align-items-start m-0 p-0 commentArea"
-          key={nanoid()}
+          key={generateUniqueId()}
         >
           {isBookDetailsPage ? (
-            <h3 key={nanoid()} className="mb-5 align-self-center">
+            <h3 key={generateUniqueId()} className="mb-5 align-self-center">
               Reviews:
             </h3>
           ) : (
@@ -134,10 +134,10 @@ const CommentArea = () => {
                 backdropFilter: "blur(2px)",
                 backgroundColor: "rgba(255, 255, 255, 0.0001)",
               }}
-              key={nanoid()}
+              key={generateUniqueId()}
             >
-              <h3 key={nanoid()}>Comments for:</h3>
-              <h5 key={nanoid()} className="mb-5">
+              <h3 key={generateUniqueId()}>Comments for:</h3>
+              <h5 key={generateUniqueId()} className="mb-5">
                 {selected.title}
               </h5>
             </div>
@@ -148,7 +148,7 @@ const CommentArea = () => {
               <CommentList
                 comment={comment}
                 title={selected.title}
-                key={nanoid()}
+                key={generateUniqueId()}
                 handleDeleteComment={handleDeleteComment}
                 getCommentsFromApi={getCommentsFromApi}
                 setShowSuccessDeleteAlert={setShowSuccessDeleteAlert}
@@ -160,7 +160,7 @@ const CommentArea = () => {
           ) : (
             <p
               className="d-flex justify-content-center align-items-center mx-auto p-0 m-0"
-              key={nanoid()}
+              key={generateUniqueId()}
             >
               No comments here yet 😟 Be the first one!
             </p>
@@ -172,7 +172,7 @@ const CommentArea = () => {
             handleAddNewComment={handleAddNewComment}
             setShowSuccessAlert={setShowSuccessAlert}
             setShowErrorAlert={setShowErrorAlert}
-            key={nanoid()}
+            key={generateUniqueId()}
           />
         </div>
       ) : null}
