@@ -41,7 +41,7 @@ const Cart = () => {
 
   return (
     <QueryProvider>
-      <div
+      <div data-testid="cart-component"
         className={`${
           theme === "light" ? "bg-light" : "bg-dark text-light"
         } d-flex flex-column min-vh-100`}

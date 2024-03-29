@@ -1,22 +1,76 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import App from './App';
-
-test('test semplice', () => {
-  const { asFragment } = render(<App />);
-  expect(asFragment()).toMatchSnapshot();
-})
-
 //TODO 1.Test per verificare la resa corretta del componente Welcome in Homepage
-test('renders Welcome component in Homepage', () => {
-  const { getByTestId } = render(<Homepage />);
-  const welcomeElement = getByTestId('welcome-component');
+import React from "react";
+import { render } from "@testing-library/react";
+import Homepage from "./pages/Homepage";
+import Cart from "./pages/Cart";
+import { ThemeContext } from "./context/ThemeContext";
+import "@testing-library/jest-dom";
+import { SelectedProvider } from "./context/SelectedContext";
+import { OnCartContext } from "./context/OnCartContext";
+import { OffCanvassProvider } from "./context/OffCanvassContext";
+
+import { SelectCategoryContext } from "./context/SelectCategoryContext";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+function WelcomeRender() {
+  return render(
+    <ThemeContext.Provider value={{ theme: "light" }}>
+      <SelectCategoryContext.Provider value={{ selectedCategory: "History" }}>
+        <SelectedProvider>
+          <OnCartContext.Provider value={{ onCart: [] }}>
+            <OffCanvassProvider>
+              <BrowserRouter>
+                <Routes>
+                  <Route exact path="/" element={<Homepage />} />
+                </Routes>
+              </BrowserRouter>
+            </OffCanvassProvider>
+          </OnCartContext.Provider>
+        </SelectedProvider>
+      </SelectCategoryContext.Provider>
+    </ThemeContext.Provider>
+  );
+}
+
+test("renders Welcome component in Homepage", () => {
+  const { getByTestId } = WelcomeRender();
+  const welcomeElement = getByTestId("welcome-component");
   expect(welcomeElement).toBeInTheDocument();
 });
 
-//TODO 2. Verifica che vengano effettivamente renderizzte tante bootstap card quanti sono i libri nel file json utilizzato
+//TODO 1.Test per verificare la resa corretta del componente Cart in Homepage
+function CartRender() {
+  return render(
+    <ThemeContext.Provider value={{ theme: "light" }}>
+      <SelectCategoryContext.Provider value={{ selectedCategory: "History" }}>
+        <SelectedProvider>
+          <OnCartContext.Provider value={{ onCart: [] }}>
+            <OffCanvassProvider>
+              <BrowserRouter>
+                <Routes>
+                  <Route exact path="/" element={<Cart />} />
+                </Routes>
+              </BrowserRouter>
+            </OffCanvassProvider>
+          </OnCartContext.Provider>
+        </SelectedProvider>
+      </SelectCategoryContext.Provider>
+    </ThemeContext.Provider>
+  );
+}
+
+test("renders Cart component in Homepage", () => {
+  const { getByTestId } = CartRender();
+  const cartElement = getByTestId("cart-component");
+  expect(cartElement).toBeInTheDocument();
+});
+
+//TODO 2. Verifica che vengano effettivamente renderizzate tante bootstap card quanti sono i libri nel file json utilizzato
+
 
 //TODO 3. Verifica che il componente CommentArea venga renderizzato correttamente
+
+
 
 //TODO 4. Verifica che il filtraggio dei libri tramite navbar si comporti come previsto
 
