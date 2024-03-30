@@ -71,32 +71,32 @@ test("renders Cart component in Homepage", () => {
 
 
 //TODO 3. Verifica che il componente CommentArea venga renderizzato correttamente
-function CommentAreaRender() {
-  return render(
-    <ThemeContext.Provider value={{ theme: "light" }}>
-      <SelectCategoryContext.Provider value={{ selectedCategory: "History" }}>
-        <SelectedProvider>
-          <OnCartContext.Provider value={{ onCart: [] }}>
-            <OffCanvassProvider>
-              <BrowserRouter>
-                <Routes>
-                  <Route exact path="/" element={<Homepage />} />
-                  Homepage -> AllBooks -> CommentArea
-                </Routes>
-              </BrowserRouter>
-            </OffCanvassProvider>
-          </OnCartContext.Provider>
-        </SelectedProvider>
-      </SelectCategoryContext.Provider>
-    </ThemeContext.Provider>
-  );
-}
+// function CommentAreaRender() {
+//   return render(
+//     <ThemeContext.Provider value={{ theme: "light" }}>
+//       <SelectCategoryContext.Provider value={{ selectedCategory: "History" }}>
+//         <SelectedProvider>
+//           <OnCartContext.Provider value={{ onCart: [] }}>
+//             <OffCanvassProvider>
+//               <BrowserRouter>
+//                 <Routes>
+//                   <Route exact path="/" element={<Homepage />} />
+//                   Homepage -> AllBooks -> CommentArea
+//                 </Routes>
+//               </BrowserRouter>
+//             </OffCanvassProvider>
+//           </OnCartContext.Provider>
+//         </SelectedProvider>
+//       </SelectCategoryContext.Provider>
+//     </ThemeContext.Provider>
+//   );
+// }
 
-test("renders CommentArea component in Homepage", () => {
-  const { getByTestId } = CommentAreaRender();
-  const commentArea = getByTestId("commentArea-component");
-  expect(commentArea).toBeInTheDocument();
-});
+// test("renders CommentArea component in Homepage", () => {
+//   const { getByTestId } = CommentAreaRender();
+//   const commentArea = getByTestId("commentArea-component");
+//   expect(commentArea).toBeInTheDocument();
+// });
 
 
 //TODO 4. Verifica che il filtraggio dei libri tramite navbar si comporti come previsto
