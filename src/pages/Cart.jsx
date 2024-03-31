@@ -37,7 +37,7 @@ const Cart = () => {
     let total = 0;
     onCart.map((item) => {
       total += parseFloat(item.price) * item.count;
-      return null; // Explicitly return null from the arrow function
+      return null;
     });
     return total.toFixed(2);
   };
