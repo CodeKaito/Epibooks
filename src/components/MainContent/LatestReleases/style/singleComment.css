@@ -1,0 +1,11 @@
+.bi-star-fill {
+    color: #ec9c05;
+  }
+  
+  .bi-patch-check-fill {
+    color: rgb(0, 156, 26);
+  }
+  
+  .singleCommentWrapper {
+    box-shadow: 3px 3px 8px #00000040 !important;
+  }

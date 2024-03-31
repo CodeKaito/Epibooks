@@ -1,0 +1,35 @@
+/* .mainContainer {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 5rem !important;
+}
+
+.booksContainer {
+}
+
+.commentsContainer {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 7rem;
+} */
+
+.mainContainer-scrollable {
+    height: calc(100vh - 10px); /* Adjust the height as per your requirements */
+    overflow-y: auto;
+  }
+  
+  .commentsContainer-scrollable {
+    height: 90vh; /* Adjust the height as per your requirements */
+    position: -webkit-sticky;
+    position: sticky;
+    top: 5rem;
+    overflow-y: auto;
+  }
+  
+  .mainContainer-scrollable::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .commentsContainer-scrollable::-webkit-scrollbar {
+    display: none;
+  }

@@ -1,0 +1,5 @@
+
+.mainContainer-scrollable {
+    height: calc(80vh - 20px);
+    overflow-y: auto;
+}
