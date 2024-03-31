@@ -13,7 +13,7 @@ function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
   const { selected, handleSelect } = useContext(SelectedContext);
   const isSelected = selected.asin === asin;
 
-  const { onCart, handleSelectOnCart } = useContext(OnCartContext);
+  const { onCart, handleSelectOnCart, setOnCart } = useContext(OnCartContext);
 
   useEffect(() => {
     if (successAddToCart) {
@@ -26,7 +26,6 @@ function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
   }, [successAddToCart]);
 
   useEffect(() => {
-
     localStorage.setItem("cart", JSON.stringify(onCart));
   }, [onCart]);
 
@@ -35,13 +34,23 @@ function SingleCard({ img, title, category, price, btnSeeMore, asin }) {
   };
 
   const handleAddToCart = () => {
-    const productId = generateUniqueId();
-    handleSelectOnCart({ id: productId, title, category, price, img });
-    console.log("Product added to cart:", title);
-    console.log("Cart items:", onCart);
+    const existingProductIndex = onCart.findIndex(item => item.asin === asin);
+  
+    if (existingProductIndex !== -1) {
+      const updatedCart = [...onCart];
+      updatedCart[existingProductIndex].count += 1; // Incrementa il conteggio del prodotto esistente nel carrello
+      setOnCart(updatedCart);
+    } else {
+      const productId = generateUniqueId();
+      handleSelectOnCart({ id: productId, title, category, price, img, asin, count: 1 }); // Aggiungi un nuovo prodotto al carrello con conteggio 1
+    }
+  
+    console.log("Product added to cart:", title); // Console log del prodotto aggiunto
+    console.log("Cart items:", onCart); // Console log dell'array del carrello
     setSuccessAddToCart(true);
-    setAddToCartCount(addToCartCount + 1); 
+    setAddToCartCount(prevCount => prevCount + 1); // Incrementa il conteggio di addToCartCount
   };
+  
 
   return (
     <>

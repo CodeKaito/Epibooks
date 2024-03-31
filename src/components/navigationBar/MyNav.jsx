@@ -30,12 +30,14 @@ const MyNav = () => {
   };
 
   useEffect(() => {
-    setCartItemCount(onCart.length);
+    const totalCount = onCart.reduce((acc, item) => acc + item.count, 0);
+    setCartItemCount(totalCount);
     setIsCartJumping(true); // Attiva l'animazione
     setTimeout(() => {
       setIsCartJumping(false); // Disattiva l'animazione dopo 500ms
     }, 500);
   }, [onCart]);
+  
 
   return (
     <>

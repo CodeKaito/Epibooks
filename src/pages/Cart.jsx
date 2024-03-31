@@ -7,9 +7,21 @@ import { Card, Button, Container, Alert, Row, Col } from "react-bootstrap";
 import { QueryProvider } from "../context/QueryContext";
 
 const Cart = () => {
-  const { onCart, handleRemoveFromCart } = useContext(OnCartContext);
   const [successRemoveFromCart, setSuccessRemoveFromCart] = useState(false);
   const { theme } = useContext(ThemeContext);
+
+  const { onCart, handleRemoveFromCart, handleSelectOnCart } =
+    useContext(OnCartContext);
+
+  const handleRemoveProduct = (productId) => {
+    const existingProductIndex = onCart.findIndex(
+      (item) => item.id === productId
+    );
+    if (existingProductIndex !== -1) {
+      handleRemoveFromCart(productId); // Chiamiamo la funzione handleRemoveFromCart fornita dal contesto OnCartContext
+      setSuccessRemoveFromCart(true);
+    }
+  };
 
   useEffect(() => {
     if (successRemoveFromCart) {
@@ -24,24 +36,15 @@ const Cart = () => {
   const calculateTotal = () => {
     let total = 0;
     onCart.forEach((item) => {
-      total += parseFloat(item.price);
+      total += parseFloat(item.price) * item.count;
     });
     return total.toFixed(2);
   };
 
-  const groupedProducts = onCart.reduce((acc, item) => {
-    const existingItem = acc.find((group) => group.title === item.title);
-    if (existingItem) {
-      existingItem.count++;
-    } else {
-      acc.push({ ...item, count: 1 });
-    }
-    return acc;
-  }, []);
-
   return (
     <QueryProvider>
-      <div data-testid="cart-component"
+      <div
+        data-testid="cart-component"
         className={`${
           theme === "light" ? "bg-light" : "bg-dark text-light"
         } d-flex flex-column min-vh-100`}
@@ -68,7 +71,7 @@ const Cart = () => {
             <Row className="g-4">
               <Col md={8}>
                 <div className="border p-3">
-                  {groupedProducts.map((item) => (
+                  {onCart.map((item) => (
                     <div
                       key={item.id}
                       className="mb-3"
@@ -100,16 +103,20 @@ const Cart = () => {
                                   color: theme === "light" ? "black" : "white",
                                 }}
                               >
-                                Price: ${item.price} {item.count > 1 && `x ${item.count} `}
+                                Price: ${item.price} x {item.count}
                               </Card.Text>
                               <Button
                                 variant="danger"
-                                onClick={() => {
-                                  handleRemoveFromCart(item.id);
-                                  setSuccessRemoveFromCart(true);
-                                }}
+                                onClick={() => handleRemoveProduct(item.id)}
+                                className="me-2" // Aggiungi una classe per spaziatura
                               >
-                                Remove from Cart
+                                Remove Product
+                              </Button>
+                              <Button
+                                variant="primary" // Cambia il colore a tuo piacimento
+                                onClick={() => handleSelectOnCart(item)} // Usa la funzione handleSelectOnCart fornita dal contesto per aggiungere il prodotto al gruppo di prodotti nel carrello
+                              >
+                                Add Product
                               </Button>
                             </Card.Body>
                           </div>
