@@ -5,6 +5,7 @@ import MyNav from "../components/navigationBar/MyNav";
 import MyFooter from "../components/MyFooter/MyFooter";
 import { Card, Button, Container, Alert, Row, Col } from "react-bootstrap";
 import { QueryProvider } from "../context/QueryContext";
+import './style/cart.css'
 
 const Cart = () => {
   const [successRemoveFromCart, setSuccessRemoveFromCart] = useState(false);
@@ -129,10 +130,10 @@ const Cart = () => {
               </Col>
               <Col md={4}>
                 <div className="border p-3">
-                  <h2>Checkout:</h2>
+                  <h4>Checkout:</h4>
                   <ul>
                     {onCart.map((item) => (
-                      <li key={item.id}>
+                      <li key={item.id} className="item-list">
                         {item.title} x ({item.count} items)
                       </li>
                     ))}
