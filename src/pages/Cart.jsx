@@ -35,7 +35,7 @@ const Cart = () => {
 
   const calculateTotal = () => {
     let total = 0;
-    onCart.forEach((item) => {
+    onCart.map((item) => {
       total += parseFloat(item.price) * item.count;
     });
     return total.toFixed(2);
