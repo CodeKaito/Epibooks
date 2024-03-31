@@ -18,7 +18,7 @@ const Cart = () => {
       (item) => item.id === productId
     );
     if (existingProductIndex !== -1) {
-      handleRemoveFromCart(productId); // Chiamiamo la funzione handleRemoveFromCart fornita dal contesto OnCartContext
+      handleRemoveFromCart(productId);
       setSuccessRemoveFromCart(true);
     }
   };
@@ -37,6 +37,7 @@ const Cart = () => {
     let total = 0;
     onCart.map((item) => {
       total += parseFloat(item.price) * item.count;
+      return null; // Explicitly return null from the arrow function
     });
     return total.toFixed(2);
   };
@@ -108,13 +109,13 @@ const Cart = () => {
                               <Button
                                 variant="danger"
                                 onClick={() => handleRemoveProduct(item.id)}
-                                className="me-2" // Aggiungi una classe per spaziatura
+                                className="me-2"
                               >
                                 Remove Product
                               </Button>
                               <Button
-                                variant="primary" // Cambia il colore a tuo piacimento
-                                onClick={() => handleSelectOnCart(item)} // Usa la funzione handleSelectOnCart fornita dal contesto per aggiungere il prodotto al gruppo di prodotti nel carrello
+                                variant="primary"
+                                onClick={() => handleSelectOnCart(item)}
                               >
                                 Add Product
                               </Button>
@@ -128,8 +129,16 @@ const Cart = () => {
               </Col>
               <Col md={4}>
                 <div className="border p-3">
-                  <h2>Total:</h2>
-                  <p>${calculateTotal()}</p>
+                  <h2>Checkout:</h2>
+                  <ul>
+                    {onCart.map((item) => (
+                      <li key={item.id}>
+                        {item.title} x ({item.count} items)
+                      </li>
+                    ))}
+                  </ul>
+                  <h3>Total: ${calculateTotal()}</h3>
+                  <p></p>
                 </div>
               </Col>
             </Row>
