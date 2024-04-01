@@ -79,7 +79,7 @@ const Cart = () => {
                       className="mb-3"
                       style={{ maxWidth: "100px", maxHeight: "200px" }}
                     >
-                      <Card>
+                      <Card className="mt-4">
                         <div className="d-flex justify-content-between">
                           <Card.Img
                             variant="top"
