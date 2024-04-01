@@ -5,7 +5,8 @@ import MyNav from "../components/navigationBar/MyNav";
 import MyFooter from "../components/MyFooter/MyFooter";
 import { Card, Button, Container, Alert, Row, Col } from "react-bootstrap";
 import { QueryProvider } from "../context/QueryContext";
-import './style/cart.css'
+import "./style/cart.css";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const [successRemoveFromCart, setSuccessRemoveFromCart] = useState(false);
@@ -77,7 +78,7 @@ const Cart = () => {
                     <div
                       key={item.id}
                       className="mb-3"
-                      style={{ maxWidth: "100px", maxHeight: "200px" }}
+                      style={{ minWidth: "100px", maxWidth: "100px",minHeight: "200px", maxHeight: "200px" }}
                     >
                       <Card className="mt-4">
                         <div className="d-flex justify-content-between">
@@ -146,6 +147,18 @@ const Cart = () => {
             </Row>
           )}
         </Container>
+        <div className="d-flex justify-content-center mt-5">
+          <Link to={"/"}>
+            <Button
+              variant={`${
+                theme === "light" ? "outline-dark" : "outline-light"
+              }`}
+            >
+              <i className="bi bi-arrow-left-square"></i>&nbsp;&nbsp;Back to
+              Homepage
+            </Button>
+          </Link>
+        </div>
         <MyFooter />
       </div>
     </QueryProvider>
