@@ -3,7 +3,15 @@ import { OnCartContext } from "../context/OnCartContext";
 import { ThemeContext } from "../context/ThemeContext";
 import MyNav from "../components/navigationBar/MyNav";
 import MyFooter from "../components/MyFooter/MyFooter";
-import { Card, Button, Container, Alert, Row, Col } from "react-bootstrap";
+import {
+  Card,
+  Button,
+  Container,
+  Alert,
+  Row,
+  Col,
+  Modal,
+} from "react-bootstrap";
 import { QueryProvider } from "../context/QueryContext";
 import "./style/cart.css";
 import { Link } from "react-router-dom";
@@ -11,8 +19,10 @@ import { Link } from "react-router-dom";
 const Cart = () => {
   const [successRemoveFromCart, setSuccessRemoveFromCart] = useState(false);
   const { theme } = useContext(ThemeContext);
+  const [showClearModal, setShowClearModal] = useState(false);
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
 
-  const { onCart, handleRemoveFromCart, handleSelectOnCart } =
+  const { onCart, handleRemoveFromCart, handleSelectOnCart, handleClearCart } =
     useContext(OnCartContext);
 
   const handleRemoveProduct = (productId) => {
@@ -23,6 +33,15 @@ const Cart = () => {
       handleRemoveFromCart(productId);
       setSuccessRemoveFromCart(true);
     }
+  };
+
+  const handleClearFromCart = () => {
+    handleClearCart();
+    setShowClearModal(false);
+  };
+
+  const handleCheckout = () => {
+    setShowCheckoutModal(true);
   };
 
   useEffect(() => {
@@ -78,9 +97,12 @@ const Cart = () => {
                     <div
                       key={item.id}
                       className="mb-3"
-                      style={{ minWidth: "100px", maxWidth: "100px",minHeight: "200px", maxHeight: "200px" }}
+                      style={{
+                        maxWidth: "100px",
+                        maxHeight: "300px",
+                      }}
                     >
-                      <Card className="mt-4">
+                      <Card>
                         <div className="d-flex justify-content-between">
                           <Card.Img
                             variant="top"
@@ -101,27 +123,31 @@ const Cart = () => {
                               >
                                 {item.title}
                               </Card.Title>
-                              <Card.Text
-                                style={{
-                                  color: theme === "light" ? "black" : "white",
-                                }}
-                              >
-                                Price: ${item.price} x {item.count}
-                              </Card.Text>
-                              <Button
-                                variant="danger"
-                                onClick={() => handleRemoveProduct(item.id)}
-                                className="me-2"
-                              >
-                                Remove Product
-                              </Button>
-                              <Button
-                                variant="primary"
-                                onClick={() => handleSelectOnCart(item)}
-                                className="mt-2"
-                              >
-                                Add Product
-                              </Button>
+                                <Card.Text
+                                  style={{
+                                    color:
+                                      theme === "light" ? "black" : "white",
+                                  }}
+                                >
+                                  Price: ${item.price} x ({item.count} items)
+                                </Card.Text>
+                                  <Button
+                                    variant="danger"
+                                    onClick={() => handleRemoveProduct(item.id)}
+                                    className="mt-2 me-2"
+                                  >
+                                    -
+                                  </Button>
+                                  <Button variant="secondary" className="mt-2 me-2">
+                                  {item.count}
+                                  </Button>
+                                  <Button
+                                    variant="primary"
+                                    onClick={() => handleSelectOnCart(item)}
+                                    className="mt-2"
+                                  >
+                                    +
+                                  </Button>
                             </Card.Body>
                           </div>
                         </div>
@@ -141,9 +167,61 @@ const Cart = () => {
                     ))}
                   </ul>
                   <h3>Total: ${calculateTotal()}</h3>
-                  <p></p>
+                  <Button
+                    variant="danger"
+                    onClick={() => setShowClearModal(true)}
+                    className="mt-3 me-3"
+                  >
+                    Clear Cart
+                  </Button>
+                  <Button
+                    variant="success"
+                    className="mt-3"
+                    onClick={handleCheckout}
+                    disabled={onCart.length === 0}
+                  >
+                    Proceed to Checkout
+                  </Button>
                 </div>
               </Col>
+              <Modal
+                show={showClearModal}
+                onHide={() => setShowClearModal(false)}
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title>Clear Cart</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  Are you sure you want to clear your cart?
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button
+                    variant="secondary"
+                    onClick={() => setShowClearModal(false)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button variant="danger" onClick={handleClearFromCart}>
+                    Clear
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+              <Modal
+                show={showCheckoutModal}
+                onHide={() => setShowCheckoutModal(false)}
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title>Checkout</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Your order has been accepted.</Modal.Body>
+                <Modal.Footer>
+                  <Link to="/">
+                    <Button variant="primary" onClick={handleClearFromCart}>
+                      Close
+                    </Button>
+                  </Link>
+                </Modal.Footer>
+              </Modal>
             </Row>
           )}
         </Container>

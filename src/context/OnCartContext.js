@@ -44,8 +44,13 @@ const OnCartProvider = ({ children }) => {
     }
   };
 
+  const handleClearCart = () => {
+    setOnCart([]);
+    setOnCartCount(0);
+  };
+
   return (
-    <OnCartContext.Provider value={{ onCart, setOnCart, handleSelectOnCart, handleRemoveFromCart, onCartCount }}>
+    <OnCartContext.Provider value={{ onCart, setOnCart, handleSelectOnCart, handleRemoveFromCart, onCartCount, handleClearCart }}>
       {children}
     </OnCartContext.Provider>
   );
