@@ -89,7 +89,7 @@ const Cart = () => {
                           <div className="flex-grow-1">
                             <Card.Body
                               style={{
-                                width: "400px",
+                                width: "300px",
                                 color: theme === "light" ? "black" : "white",
                               }}
                             >
@@ -117,6 +117,7 @@ const Cart = () => {
                               <Button
                                 variant="primary"
                                 onClick={() => handleSelectOnCart(item)}
+                                className="mt-2"
                               >
                                 Add Product
                               </Button>
