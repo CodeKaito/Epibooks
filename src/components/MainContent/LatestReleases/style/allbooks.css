@@ -33,3 +33,9 @@
   .commentsContainer-scrollable::-webkit-scrollbar {
     display: none;
   }
+
+.booksContainer {
+  border: .5px solid rgb(203, 203, 203);
+  padding: 10px;
+  border-radius: 5px;
+}
