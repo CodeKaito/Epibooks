@@ -157,7 +157,7 @@ const Cart = () => {
                 </div>
               </Col>
               <Col md={4}>
-                <div className="border p-3">
+                <div className="border p-3 mt-2">
                   <h4>Checkout:</h4>
                   <ul>
                     {onCart.map((item) => (
