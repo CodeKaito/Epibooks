@@ -79,7 +79,7 @@ const AllBooks = () => {
           style={{ maxWidth: "700px" }}
           key={generateUniqueId()}
         >
-          Ooops, sembra che non riesca a trovare nulla dalla tua ricerca, per favore riprova!
+          It seems I cannot find your desired book. Please try again
         </Alert>
       );
     }
