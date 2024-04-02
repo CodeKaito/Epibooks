@@ -92,7 +92,7 @@ const Cart = () => {
           ) : (
             <Row className="g-4">
               <Col md={8}>
-                <div className="border p-3">
+                <div className="border p-3 mt-2">
                   {onCart.map((item) => (
                     <div
                       key={item.id}

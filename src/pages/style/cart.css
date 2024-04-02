@@ -5,6 +5,11 @@
 .card-title, h4  {
     font-size: 16px!important;
   }
+
+  .card-body {
+    max-width: 300px;
+    color: black;
+}
   
   @media only screen and (max-width: 768px) {
     .card-title {
@@ -12,6 +17,9 @@
     }
     .card-text {
         font-size: 8px!important;
+    }
+    .card-body {
+        max-width: 200px;
     }
   }
 
